@@ -6,7 +6,8 @@ import { useHeadTracking } from '../../hooks/useHeadTracking';
 export function Anita(props) {
   const { nodes, materials, scene } = useGLTF('/Ashline_Avatar_demo/models/Ashline.glb');
   // const { nodes, materials, scene } = useGLTF('/models/Ashline.glb');
-  const { animations } = useGLTF('/animations/animations.glb');
+  const { animations } = useGLTF('/Ashline_Avatar_demo/animations/animations.glb');
+  // const { animations } = useGLTF('/animations/animations.glb');
   const anitaRef = useRef();
   const { actions, mixer } = useAnimations(animations, anitaRef);
   const [animation, setAnimation] = useState(

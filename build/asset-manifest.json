@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Ashline_Avatar_demo/static/css/main.cd18c99a.css",
-    "main.js": "/Ashline_Avatar_demo/static/js/main.4ffbf44b.js",
+    "main.js": "/Ashline_Avatar_demo/static/js/main.d5f01cad.js",
     "static/media/reset.png": "/Ashline_Avatar_demo/static/media/reset.cc5e10c1bd35cb415766.png",
     "static/media/ConvaiLogo.png": "/Ashline_Avatar_demo/static/media/ConvaiLogo.d7955590a6aa603cf8f4.png",
     "static/media/Thumbsup_outline.png": "/Ashline_Avatar_demo/static/media/Thumbsup_outline.d1240ddfd8c2691262cf.png",
@@ -10,10 +10,10 @@
     "static/media/Thumbsup_fill.png": "/Ashline_Avatar_demo/static/media/Thumbsup_fill.cd881c89769ef0c221a7.png",
     "index.html": "/Ashline_Avatar_demo/index.html",
     "main.cd18c99a.css.map": "/Ashline_Avatar_demo/static/css/main.cd18c99a.css.map",
-    "main.4ffbf44b.js.map": "/Ashline_Avatar_demo/static/js/main.4ffbf44b.js.map"
+    "main.d5f01cad.js.map": "/Ashline_Avatar_demo/static/js/main.d5f01cad.js.map"
   },
   "entrypoints": [
     "static/css/main.cd18c99a.css",
-    "static/js/main.4ffbf44b.js"
+    "static/js/main.d5f01cad.js"
   ]
 }

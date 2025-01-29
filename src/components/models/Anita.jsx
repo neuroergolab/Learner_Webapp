@@ -4,7 +4,7 @@ import { useRPMLipsync } from '../../hooks/useRPMLipsync';
 import { useHeadTracking } from '../../hooks/useHeadTracking';
 
 export function Anita(props) {
-  const { nodes, materials, scene } = useGLTF(`${process.env.PUBLIC_URL}/public/models/Ashline.glb`);
+  const { nodes, materials, scene } = useGLTF(`${process.env.PUBLIC_URL}/models/Ashline.glb`);
   // const { nodes, materials, scene } = useGLTF('/models/Ashline.glb');
   const { animations } = useGLTF('/animations/animations.glb');
   const anitaRef = useRef();
@@ -99,8 +99,8 @@ export function Anita(props) {
   );
 }
 // const { nodes, materials, scene } = useGLTF(`${process.env.PUBLIC_URL}/public/models/Ashline.glb`)
-useGLTF.preload(`${process.env.PUBLIC_URL}/public/models/Ashline.glb`);
-useGLTF.preload(`${process.env.PUBLIC_URL}/public/animations/animations.glb');
+useGLTF.preload(`${process.env.PUBLIC_URL}/models/Ashline.glb`);
+useGLTF.preload(`${process.env.PUBLIC_URL}/animations/animations.glb');
 
 // useGLTF.preload('/models/Ashline.glb');
 // useGLTF.preload('/animations/animations.glb');

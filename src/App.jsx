@@ -11,7 +11,8 @@ function App() {
    * 动态 characterID 状态
    */
   const [characterID, setCharacterID] = useState(
-    'a884e968-661a-11ef-93da-42010a7be011' // 默认值 (Jax)
+    'a884e968-661a-11ef-93da-42010a7be011' // Ashline
+    // 默认值 (Jax)
   );
 
   useEffect(() => {
@@ -50,6 +51,41 @@ function App() {
 
   return (
     <>
+      {/* Next 按钮 */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '10px',
+          right: '10px',
+          backgroundColor: 'rgba(0, 0, 0, 0.7)',
+          borderRadius: '10px',
+          width: '8vw',
+          height: '2.5vw',
+          color: 'white',
+          display: 'flex',
+          justifyContent: 'center',
+          cursor: 'pointer',
+          zIndex: 1000, // 确保按钮显示在前面
+        }}
+        onMouseEnter={(e) => (e.target.style.backgroundColor = 'rgba(0, 0, 0, 1)')}
+        onMouseLeave={(e) => (e.target.style.backgroundColor = 'rgba(0, 0, 0, 0.7)')}
+        onClick={() => {
+          window.location.href = 'https://cwy88.github.io/Charlene_Avatar_demo/';
+        }}
+      >
+        <div
+          style={{
+            alignSelf: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            fontWeight: 'bold',
+          }}
+        >
+          <p style={{ fontSize: '0.78vw' }}>Next</p>
+        </div>
+      </div>
+
       <KeyboardControls
         map={[
           { name: 'forward', keys: ['ArrowUp', 'w', 'W'] },

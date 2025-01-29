@@ -98,9 +98,12 @@ export function Anita(props) {
     </group>
   );
 }
+const { nodes, materials, scene } = useGLTF(`${process.env.PUBLIC_URL}/models/Ashline.glb`)
+useGLTF.preload(`${process.env.PUBLIC_URL}/models/Ashline.glb`);
+useGLTF.preload(`${process.env.PUBLIC_URL}/animations/animations.glb');
 
-useGLTF.preload('/models/Ashline.glb');
-useGLTF.preload('/animations/animations.glb');
+// useGLTF.preload('/models/Ashline.glb');
+// useGLTF.preload('/animations/animations.glb');
 
 // import { useAnimations, useGLTF } from '@react-three/drei';
 // import React, { useEffect, useRef, useState } from 'react';

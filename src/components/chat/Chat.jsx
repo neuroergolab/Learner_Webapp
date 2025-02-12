@@ -6,7 +6,7 @@ import ChatBubblev1 from "./ChatBubblev1";
 import ChatHistory from "./ChatHistory";
 import reset from "../../assets/reset.png";
 import "../../index.css";
-import { uploadData } from "../helpers/datapipeAPI"; // 导入 uploadData 函数
+import { uploadData } from "../../helpers/datapipeAPI"; // 导入 uploadData 函数
 
 // 动态变量，用于记录 Reset Session 按钮的点击次数
 let resetClickCount = 0;

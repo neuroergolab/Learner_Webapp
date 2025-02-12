@@ -5,7 +5,7 @@ export const uploadData = (filename, data) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Accept: "*/*",
+        "Accept": "application/json",
       },
       body: JSON.stringify({
         experimentID: "UX50ozI42umk", // 固定的 experimentID

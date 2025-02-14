@@ -176,7 +176,7 @@ const ChatBubble = (props) => {
     if (errorResponse && !client?.npcText) {
       client.npcText = errorMessage;
       const newMessage = {
-        sender: "npc",
+        sender: client?.npcName ? client.npcName : client.characterId,
         content: errorMessage,
         timestamp: new Date().toISOString(),
       };
@@ -185,7 +185,7 @@ const ChatBubble = (props) => {
     } else {
       if (client?.npcText !== "" && !client?.isTalking) {
         const newMessage = {
-          sender: "npc",
+          sender: client?.npcName ? client.npcName : client.characterId,
           content: client?.npcText,
           timestamp: new Date().toISOString(),
         };

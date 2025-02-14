@@ -27,6 +27,8 @@ export function useConvaiClient(characterId, apiKey) {
   let keyPressTime = 100;
   const [keyPressTimeStamp, setKeyPressTimeStamp] = useState();
 
+  console.log("I get called!")
+
 
 
 
@@ -41,6 +43,8 @@ export function useConvaiClient(characterId, apiKey) {
       enableFacialData: true,
       // enableEmotionalData : true,
     });
+
+    console.log("I create a new client var!")
 
    convaiClient.current.setErrorCallback((type, message) => {
       console.log(type, message);
@@ -126,7 +130,7 @@ export function useConvaiClient(characterId, apiKey) {
           facialRef.current = [];
           setFacialData([]);
     });
-  }, []);
+  }, [characterId]);
 
   useEffect(() => {
     if (!audioPlay) {

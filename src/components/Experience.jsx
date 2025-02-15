@@ -11,24 +11,27 @@ import { Anoitane } from './models/Anoitane';
 import { Ashline } from './models/Ashline';
 import { Jax } from './models/Jax';
 import { Charlene } from './models/Charlene';
-import { getResetClickCount } from './chat/Chat'; // 确保正确导入 resetClickCount
+// not needed as update to use the parameter model.
+// import { getResetClickCount } from './chat/Chat'; // 确保正确导入 resetClickCount
 
-export const Experience = ({ client }) => {
+export const Experience = ({ client, model }) => {
   const [gravity, setGravity] = useState([0, 0, 0]);
-  const [resetClickCount, setResetClickCount] = useState(getResetClickCount()); // ✅ 记录点击次数
+  //not needed as update to use the parameter model.
+  // const [resetClickCount, setResetClickCount] = useState(getResetClickCount()); // ✅ 记录点击次数
 
   useEffect(() => {
     setGravity([0, -9.81, 0]);
   }, []);
 
-  // **监听 resetClickCount 变化**
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setResetClickCount(getResetClickCount()); // 每 100ms 监听变化
-    }, 100);
+  // not needed as update to use the parameter model.
+  // // **监听 resetClickCount 变化**
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setResetClickCount(getResetClickCount()); // 每 100ms 监听变化
+  //   }, 100);
 
-    return () => clearInterval(interval);
-  }, []);
+  //   return () => clearInterval(interval);
+  // }, []);
 
   return (
     <>
@@ -56,9 +59,9 @@ export const Experience = ({ client }) => {
           <ConvaiFPS />
           {/* 根据 resetClickCount 切换模型 */}
           {
-            resetClickCount % 4 === 0 ? <Ashline client={client} /> :
-            resetClickCount % 4 === 1 ? <Anoitane client={client} /> :
-            resetClickCount % 4 === 2 ? <Charlene client={client} /> :
+            model == "Ashline" ? <Ashline client={client} /> :
+            model == "Antoiane"  ? <Anoitane client={client} /> :
+            model == "Charleen" ? <Charlene client={client} /> :
             <Jax client={client} />
           }
 

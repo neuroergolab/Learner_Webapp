@@ -6,6 +6,7 @@ import ChatBubble from './components/chat/Chat';
 import { getResetClickCount } from './components/chat/Chat'; // 导入动态变量
 import { useState, useEffect} from 'react';
 
+
 const CHARACTER_IDS = [
   "818d2b6e-6619-11ef-8904-42010a7be011", // Antoiane
   "a884e968-661a-11ef-93da-42010a7be011", // Ashline
@@ -13,16 +14,24 @@ const CHARACTER_IDS = [
   "b75d8c36-6626-11ef-ab22-42010a7be011", // Jax
 ];
 
+const CHARACTER_MODELS = [
+  "Antoiane", // Antoiane
+  "Ashline", // Ashline
+  "Charleen", // Charleen
+  "Jax", // Jax
+];
+
+
 function App() {
   /**
    * 动态 characterID 状态
    */
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const [characterID, setCharacterID] = useState(
-    'a884e968-661a-11ef-93da-42010a7be011' // Ashline
-    // 默认值 (Jax)
-  );
+  // const [characterID, setCharacterID] = useState(
+  //   'a884e968-661a-11ef-93da-42010a7be011' // Ashline
+  //   // 默认值 (Jax)
+  // );
 
   // useEffect(() => {
   //   // 定义一个更新 characterID 的函数
@@ -82,9 +91,7 @@ function App() {
         }}
         onMouseEnter={(e) => (e.target.style.backgroundColor = 'rgba(0, 0, 0, 1)')}
         onMouseLeave={(e) => (e.target.style.backgroundColor = 'rgba(0, 0, 0, 0.7)')}
-        onClick={() => {
-          window.location.href = 'https://cwy88.github.io/Charlene_Avatar_demo/';
-        }}
+        onClick={switchCharacter}
       >  
         <div
           style={{
@@ -99,37 +106,6 @@ function App() {
         </div>
       </div>
 
-      <div
-        style={{
-          position: 'absolute',
-          top: '40px',
-          right: '400px',
-          backgroundColor: 'rgba(0, 0, 0, 0.7)',
-          borderRadius: '10px',
-          width: '8vw',
-          height: '2.5vw',
-          color: 'white',
-          display: 'flex',
-          justifyContent: 'center',
-          cursor: 'pointer',
-          zIndex: 1000, // 确保按钮显示在前面
-        }}
-        onMouseEnter={(e) => (e.target.style.backgroundColor = 'rgba(0, 0, 0, 1)')}
-        onMouseLeave={(e) => (e.target.style.backgroundColor = 'rgba(0, 0, 0, 0.7)')}
-        onClick= {switchCharacter}
-      >  
-        <div
-          style={{
-            alignSelf: 'center',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            fontWeight: 'bold',
-          }}
-        >
-          <p style={{ fontSize: '0.78vw' }}>TRIAL</p>
-        </div>
-      </div>
 
       <KeyboardControls
         map={[
@@ -149,7 +125,7 @@ function App() {
             fov: 75,
           }}
         >
-          <Experience client={client} />
+          <Experience client={client} model={CHARACTER_MODELS[currentIndex]} />
         </Canvas>
       </KeyboardControls>
       <ChatBubble client={client} />

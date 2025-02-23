@@ -8,10 +8,28 @@ import { useState, useEffect} from 'react';
 
 
 const CHARACTER_IDS = [
-  "818d2b6e-6619-11ef-8904-42010a7be011", // Antoiane
-  "a884e968-661a-11ef-93da-42010a7be011", // Ashline
-  "89cc6766-661b-11ef-85d8-42010a7be011", // Charleen
-  "b75d8c36-6626-11ef-ab22-42010a7be011", // Jax
+  "818d2b6e-6619-11ef-8904-42010a7be011", // Antoiane // assume Antoiane is C/NT LLM1
+  "a884e968-661a-11ef-93da-42010a7be011", // Ashline// assume Ashline is C/ND LLM1
+  "89cc6766-661b-11ef-85d8-42010a7be011", // Charleen assume Charllen is NC/NT LLM1
+  "b75d8c36-6626-11ef-ab22-42010a7be011", // Jax assume Jax is NC/ND LLM1. 
+];
+
+//The sequence for inputting CHARACTER_LLM should corresponds to the sequence of CHARACTER_ID.
+//This could be imporved by the scaling the index so that we won't have to input repetitive information, in the latter non-DEMO version.
+const CHARACTER_LLM = [
+  "LLM1",
+  "LLM1",
+  "LLM1",
+  "LLM1",
+  // add LLM2, LLM3, LLM4 if matched characterID is imported above.
+];
+
+const CHARACTER_EMOTION = [
+  "C/NT",
+  "C/ND",
+  "NC/NT",
+  "NC/ND",
+  // add LLM2, LLM3, LLM4 if matched characterID is imported above.
 ];
 
 const CHARACTER_MODELS = [
@@ -128,7 +146,7 @@ function App() {
           <Experience client={client} model={CHARACTER_MODELS[currentIndex]} />
         </Canvas>
       </KeyboardControls>
-      <ChatBubble client={client} />
+      <ChatBubble client={client} llmModel={CHARACTER_LLM[currentIndex]} llmEmotion={CHARACTER_EMOTION[currentIndex]} />
     </>
   );
 }

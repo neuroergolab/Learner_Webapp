@@ -15,7 +15,7 @@ let resetClickCount = 0;
 export const getResetClickCount = () => resetClickCount;
 
 const ChatBubble = (props) => {
-  const { chatHistory, client } = props;
+  const { chatHistory, client, llmModel, llmEmotion } = props;
   const [isHovered, setIsHovered] = useState(false);
   const [history, setHistory] = useState(1);
   const [session, setSession] = useState("-1");
@@ -36,9 +36,9 @@ const ChatBubble = (props) => {
 
   // CSV 生成函数：时间戳在前
   const convertMessagesToCSV = (messages) => {
-    const csvRows = ["timestamp,sender,content"]; // CSV Header
-    messages.forEach(({ sender, content, timestamp }) => {
-      csvRows.push(`"${timestamp}","${sender}","${content.replace(/"/g, '""')}"`);
+    const csvRows = ["timestamp, sender, llmModel, llmEMotion, content"]; // CSV Header
+    messages.forEach(({ sender, content, timestamp, llmModel, llmEmotion }) => {
+      csvRows.push(`"${timestamp}", "${sender}", "${llmModel}", "${llmEmotion}", "${content.replace(/"/g, '""')}"`);
     });
     return csvRows.join("\n");
   };
@@ -162,6 +162,8 @@ const ChatBubble = (props) => {
         sender: "user",
         content: client?.userText,
         timestamp: new Date().toISOString(),
+        llmModel: "N/A",
+        llmEmotion:"N/A"
       };
       setMessages((prevMessages) => [...prevMessages, newMessage]);
       client?.setUserEndOfResponse(false);
@@ -173,12 +175,15 @@ const ChatBubble = (props) => {
 
   // Stores NPC's message with timestamp
   useEffect(() => {
+    console.log(client.npcName);
     if (errorResponse && !client?.npcText) {
       client.npcText = errorMessage;
       const newMessage = {
         sender: client?.npcName ? client.npcName : client.characterId,
         content: errorMessage,
         timestamp: new Date().toISOString(),
+        llmModel: props.llmModel,
+        llmEmotion: props.llmEmotion
       };
       setMessages((prevMessages) => [...prevMessages, newMessage]);
       setErrorResponse(false);
@@ -188,6 +193,8 @@ const ChatBubble = (props) => {
           sender: client?.npcName ? client.npcName : client.characterId,
           content: client?.npcText,
           timestamp: new Date().toISOString(),
+          llmModel: props.llmModel,
+          llmEmotion: props.llmEmotion
         };
         setMessages((prevMessages) => [...prevMessages, newMessage]);
         clearTimeout(timer.current);

@@ -2,7 +2,7 @@
   "name": "viseme-lipsync",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://CWY88.github.io/Ashline_Avatar_demo",
+  "homepage": "https://cwy88.github.io/RPM_Lipsync_datapipe",
   "dependencies": {
     "@improbable-eng/grpc-web": "^0.15.0",
     "@mediapipe/tasks-vision": "^0.10.20",

@@ -6,12 +6,12 @@ import ChatBubblev1 from "./ChatBubblev1";
 import ChatHistory from "./ChatHistory";
 import reset from "../../assets/reset.png";
 import "../../index.css";
-import { uploadData } from "../../helpers/datapipeAPI"; // 导入 uploadData 函数
+import { uploadData } from "../../helpers/datapipeAPI"; // Import uploadData function
 
-// 动态变量，用于记录 Reset Session 按钮的点击次数
+// Dynamic variable to track the number of times the Reset Session button is clicked
 let resetClickCount = 0;
 
-// 动态导出函数，获取最新的点击次数
+// Dynamic export function to get the latest click count
 export const getResetClickCount = () => resetClickCount;
 
 const ChatBubble = (props) => {
@@ -34,7 +34,7 @@ const ChatBubble = (props) => {
     client?.setUserText(text);
   };
 
-  // CSV 生成函数：时间戳在前
+  // CSV generation function: Timestamp comes first
   const convertMessagesToCSV = (messages) => {
     const csvRows = ["timestamp, sender, llmModel, llmEMotion, content"]; // CSV Header
     messages.forEach(({ sender, content, timestamp, llmModel, llmEmotion }) => {
@@ -45,19 +45,19 @@ const ChatBubble = (props) => {
 
   // Reset Session
   const ResetHistory = async () => {
-    // 每次点击按钮时，更新 resetClickCount
+    // Update resetClickCount every time the button is clicked
     resetClickCount += 1;
     console.log("Reset button clicked:", getResetClickCount(), "times");
 
-    // 生成带时间后缀的文件名
+    // Generate a filename with a timestamp suffix
     const timestamp = new Date().toISOString().replace(/[:.-]/g, "_");
     const filename = `chatHistory_${timestamp}.csv`;
 
-    // 将当前消息记录转换为 CSV
+    // Convert current message history to CSV
     const csvData = convertMessagesToCSV(messages);
 
     try {
-      // 上传 CSV 文件
+      // Upload CSV file
       const response = await uploadData(filename, csvData);
       if (response.ok) {
         console.log(`Chat history uploaded successfully as ${filename}`);
@@ -68,7 +68,7 @@ const ChatBubble = (props) => {
       console.error("Error uploading chat history:", error);
     }
 
-    // 清空消息记录并重置
+    // Clear message history and reset
     const storedData = localStorage.getItem("messages");
 
     try {
@@ -130,7 +130,7 @@ const ChatBubble = (props) => {
     }
   }, [client?.characterId]);
 
-  // Store latest User and Npc Messages into the chat history
+  // Store latest User and NPC Messages into the chat history
   useEffect(() => {
     if (
       client?.convaiClient?.current &&
@@ -222,51 +222,12 @@ const ChatBubble = (props) => {
           onMouseLeave={() => setIsHovered(false)}
           onClick={ResetHistory}
         >
-          <div
-            style={{
-              alignSelf: "center",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-            }}
-          >
-            <img
-              loading="lazy"
-              src={reset}
-              height="20vw"
-              width="20vw"
-              alt="reset chat"
-            ></img>
-          </div>
-          <div
-            style={{
-              alignSelf: "center",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              marginLeft: "7px",
-              fontWeight: "bold",
-            }}
-          >
-            <p style={{ fontSize: "0.78vw" }}>Reset Session</p>
-          </div>
+          <img loading="lazy" src={reset} height="20vw" width="20vw" alt="reset chat" />
+          <p style={{ fontSize: "0.78vw", marginLeft: "7px", fontWeight: "bold" }}>Reset Session</p>
         </div>
       </div>
-      {chatHistory === "Show" && (
-        <ChatHistory
-          history={history}
-          messages={messages}
-          showHistory={showHistory}
-          npcName={client?.npcName ? client.npcName : "Npc"}
-          userName={client?.userName ? client.userName : "User"}
-        ></ChatHistory>
-      )}
-      <ChatBubblev1
-        npcText={client?.npcText}
-        userText={client?.userText}
-        messages={messages}
-        keyPressed={client?.keyPressed}
-      ></ChatBubblev1>
+      {chatHistory === "Show" && <ChatHistory history={history} messages={messages} showHistory={showHistory} />}
+      <ChatBubblev1 npcText={client?.npcText} userText={client?.userText} messages={messages} keyPressed={client?.keyPressed} />
     </section>
   );
 };

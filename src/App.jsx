@@ -11,39 +11,52 @@ const CHARACTER_IDS = [
   "89cc6766-661b-11ef-85d8-42010a7be011", // Charleen
   "b75d8c36-6626-11ef-ab22-42010a7be011", // Jax
 ];
+//The sequence for inputting CHARACTER_LLM should corresponds to the sequence of CHARACTER_ID.
+//This could be imporved by the scaling the index so that we won't have to input repetitive information, in the latter non-DEMO version.
+const CHARACTER_LLM = [
+  "LLM1",
+  "LLM1",
+  "LLM1",
+  "LLM1",
+  // add LLM2, LLM3, LLM4 if matched characterID is imported above.
+];
 
-const CHARACTER_LLM = ["LLM1", "LLM1", "LLM1", "LLM1"];
-const CHARACTER_EMOTION = ["C/NT", "C/ND", "NC/NT", "NC/ND"];
-const CHARACTER_MODELS = ["Antoiane", "Ashline", "Charleen", "Jax"];
+const CHARACTER_EMOTION = [
+  "C/NT",
+  "C/ND",
+  "NC/NT",
+  "NC/ND",
+  // add LLM2, LLM3, LLM4 if matched characterID is imported above.
+];
+
+const CHARACTER_MODELS = [
+  "Antoiane", // Antoiane
+  "Ashline", // Ashline
+  "Charleen", // Charleen
+  "Jax", // Jax
+];
+
+/**
+ * Retrieves the saved character index from localStorage safely.
+ */
+const getSavedIndex = () => {
+  if (typeof window !== "undefined") {
+    try {
+      const saved = localStorage.getItem("currentIndex");
+      return saved ? parseInt(saved, 10) : 0;
+    } catch (error) {
+      console.error("Failed to read from localStorage:", error);
+      return 0;
+    }
+  }
+  return 0;
+};
 
 function App() {
-  /**
-   * Retrieves the saved character index from localStorage safely.
-   * - Ensures localStorage is available.
-   * - Uses a default value of `0` if localStorage is empty or not accessible.
-   * - Wraps in `try-catch` to prevent crashes due to browser restrictions.
-   */
-  const getSavedIndex = () => {
-    if (typeof window !== "undefined") { // Ensure code runs in a browser
-      try {
-        const saved = localStorage.getItem("currentIndex");
-        return saved ? parseInt(saved, 10) : 0; // Default to index 0 if no data found
-      } catch (error) {
-        console.error("Failed to read from localStorage:", error);
-        return 0; // Return default value to avoid crashes
-      }
-    }
-    return 0; // Ensure SSR environments do not break
-  };
-
   const [currentIndex, setCurrentIndex] = useState(getSavedIndex);
-  const [loading, setLoading] = useState(false);
-  const [hasSwitched, setHasSwitched] = useState(false);
 
   /**
    * Stores the character index in localStorage safely.
-   * - Ensures localStorage is available.
-   * - Uses `try-catch` to handle possible storage restrictions (e.g., private browsing mode).
    */
   const safeSetLocalStorage = (key, value) => {
     if (typeof window !== "undefined") {
@@ -56,35 +69,42 @@ function App() {
   };
 
   /**
-   * Handles character switching:
-   * - Updates `currentIndex` to the next character.
-   * - Stores the new index in localStorage.
-   * - Introduces a short delay before redirecting to a survey.
+   * Handles character switching and immediately navigates to the survey.
    */
-  const switchCharacter = () => {
-    setLoading(true);
-
-    const newIndex = (currentIndex + 1) % CHARACTER_IDS.length;
-    setCurrentIndex(newIndex);
-
-    safeSetLocalStorage("currentIndex", newIndex);
-
-    setTimeout(() => {
-      setHasSwitched(true);
-      setLoading(false);
-      window.location.href =
-        "https://uwmadison.co1.qualtrics.com/jfe/form/SV_88hrKD7RncJbGrc";
-    }, 1000);
+  // const switchCharacter = () => {
+  //   const newIndex = (currentIndex + 1) % CHARACTER_IDS.length;
+  //   safeSetLocalStorage("currentIndex", newIndex); // Ensure the new character is saved
+  //   window.location.href =
+  //     "https://uwmadison.co1.qualtrics.com/jfe/form/SV_37PASiKtDyMEFBs";
+  // };
+  // Function to generate a unique userID using current timestamp and a random string
+  const generateUserID = () => {
+    // Convert the current timestamp to base36 and append a random string
+    return Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
   };
 
+  const switchCharacter = () => {
+    // Calculate the new character index and save it to localStorage
+    const newIndex = (currentIndex + 1) % CHARACTER_IDS.length;
+    safeSetLocalStorage("currentIndex", newIndex);
+
+    // Generate a unique userID
+    const userID = generateUserID();
+
+    // Qualtrics questionnaire URL
+    const qualtricsUrl = "https://uwmadison.co1.qualtrics.com/jfe/form/SV_09bY6p8o9RF6gSy";
+
+    // Construct the URL by appending the userID as a query parameter
+    window.location.href = `${qualtricsUrl}?userID=${encodeURIComponent(userID)}`;
+  };
+
+  
+
   /**
-   * Initializes component state from localStorage when the component loads.
-   * - Ensures data consistency when reloading the page.
-   * - Avoids state desynchronization issues.
+   * Ensures the correct character is loaded after returning from the survey.
    */
   useEffect(() => {
     setCurrentIndex(getSavedIndex());
-    setHasSwitched(false);
   }, []);
 
   const { client } = useConvaiClient(
@@ -145,10 +165,7 @@ function App() {
             fov: 75,
           }}
         >
-          {/* Do not render NPC if loading or character switch is not complete */}
-          {!loading && !hasSwitched && (
-            <Experience client={client} model={CHARACTER_MODELS[currentIndex]} />
-          )}
+          <Experience client={client} model={CHARACTER_MODELS[currentIndex]} />
         </Canvas>
       </KeyboardControls>
       <ChatBubble
@@ -161,6 +178,7 @@ function App() {
 }
 
 export default App;
+
 
 // import { Canvas } from '@react-three/fiber';
 // import { Experience } from './components/Experience';

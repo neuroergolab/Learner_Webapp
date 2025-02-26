@@ -21,13 +21,23 @@ const CHARACTER_LLM = [
   // add LLM2, LLM3, LLM4 if matched characterID is imported above.
 ];
 
-const CHARACTER_EMOTION = [
-  "C/NT",
-  "C/ND",
-  "NC/NT",
-  "NC/ND",
+const CHARACTER_CONDUCT = [
+  "C",
+  "C",
+  "NC",
+  "NC",
   // add LLM2, LLM3, LLM4 if matched characterID is imported above.
 ];
+
+const CHARACTER_NEURODIVERSITY = [
+  "NT",
+  "ND",
+  "NT",
+  "ND",
+  // add LLM2, LLM3, LLM4 if matched characterID is imported above.
+];
+
+
 
 const CHARACTER_MODELS = [
   "Antoiane", // Antoiane
@@ -171,7 +181,8 @@ function App() {
       <ChatBubble
         client={client}
         llmModel={CHARACTER_LLM[currentIndex]}
-        llmEmotion={CHARACTER_EMOTION[currentIndex]}
+        llmConduct={CHARACTER_CONDUCT[currentIndex]}
+        llmNeuro={CHARACTER_NEURODIVERSITY[currentIndex]}
       />
     </>
   );

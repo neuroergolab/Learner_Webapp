@@ -8,7 +8,8 @@ export const uploadData = (filename, data) => {
         "Accept": "application/json",
       },
       body: JSON.stringify({
-        experimentID: "UX50ozI42umk", // 固定的 experimentID
+        // experimentID: "6nIaN56vQweT", // Wenqing's experimentID branch
+        experimentID: "UX50ozI42umk", // Wanyi's experimentID branch
         filename,                   // 动态的文件名
         data,                       // 动态的数据内容
       }),

@@ -15,7 +15,7 @@ let resetClickCount = 0;
 export const getResetClickCount = () => resetClickCount;
 
 const ChatBubble = (props) => {
-  const { chatHistory, client, llmModel, llmEmotion } = props;
+  const { chatHistory, client} = props;
   const [isHovered, setIsHovered] = useState(false);
   const [history, setHistory] = useState(1);
   const [session, setSession] = useState("-1");
@@ -36,9 +36,9 @@ const ChatBubble = (props) => {
 
   // CSV generation function: Timestamp comes first
   const convertMessagesToCSV = (messages) => {
-    const csvRows = ["timestamp, sender, llmModel, llmEMotion, content"]; // CSV Header
-    messages.forEach(({ sender, content, timestamp, llmModel, llmEmotion }) => {
-      csvRows.push(`"${timestamp}", "${sender}", "${llmModel}", "${llmEmotion}", "${content.replace(/"/g, '""')}"`);
+    const csvRows = ["timestamp speaker model conduct neurodiversity content"]; // CSV Header
+    messages.forEach(({ sender, content, timestamp, llmModel, llmConduct, llmNeuro}) => {
+      csvRows.push(`"${timestamp}" "${sender}" "${llmModel}" "${llmConduct}" "${llmNeuro}" "${content.replace(/"/g, '""')}"`);
     });
     return csvRows.join("\n");
   };
@@ -163,7 +163,8 @@ const ChatBubble = (props) => {
         content: client?.userText,
         timestamp: new Date().toISOString(),
         llmModel: "N/A",
-        llmEmotion:"N/A"
+        llmConduct:"N/A",
+        llmNeuro: "N/A"
       };
       setMessages((prevMessages) => [...prevMessages, newMessage]);
       client?.setUserEndOfResponse(false);
@@ -183,7 +184,8 @@ const ChatBubble = (props) => {
         content: errorMessage,
         timestamp: new Date().toISOString(),
         llmModel: props.llmModel,
-        llmEmotion: props.llmEmotion
+        llmConduct:props.llmConduct,
+        llmNeuro: props.llmNeuro
       };
       setMessages((prevMessages) => [...prevMessages, newMessage]);
       setErrorResponse(false);
@@ -194,7 +196,8 @@ const ChatBubble = (props) => {
           content: client?.npcText,
           timestamp: new Date().toISOString(),
           llmModel: props.llmModel,
-          llmEmotion: props.llmEmotion
+          llmConduct:props.llmConduct,
+          llmNeuro: props.llmNeuro
         };
         setMessages((prevMessages) => [...prevMessages, newMessage]);
         clearTimeout(timer.current);

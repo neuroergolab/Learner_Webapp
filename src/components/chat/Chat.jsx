@@ -36,9 +36,9 @@ const ChatBubble = (props) => {
 
   // CSV generation function: Timestamp comes first
   const convertMessagesToCSV = (messages) => {
-    const csvRows = ["timestamp speaker model conduct neurodiversity content"]; // CSV Header
+    const csvRows = ["timestamp, speaker, model, conduct, neurodiversity, content"]; // CSV Header
     messages.forEach(({ sender, content, timestamp, llmModel, llmConduct, llmNeuro}) => {
-      csvRows.push(`"${timestamp}" "${sender}" "${llmModel}" "${llmConduct}" "${llmNeuro}" "${content.replace(/"/g, '""')}"`);
+      csvRows.push(`"${timestamp}", "${sender}", "${llmModel}", "${llmConduct}", "${llmNeuro}", "${content.replace(/"/g, '""')}"`);
     });
     return csvRows.join("\n");
   };

@@ -7,10 +7,12 @@ import {
 import { Suspense, useEffect, useState } from 'react';
 import { CuboidCollider, Physics, RigidBody } from '@react-three/rapier';
 import { ConvaiFPS } from './fps/convaiFPS';
-import { Anoitane } from './models/Anoitane';
+import { Antoiane } from './models/Antoiane';
 import { Ashline } from './models/Ashline';
 import { Jax } from './models/Jax';
 import { Charlene } from './models/Charlene';
+import { Jessie, Jessiee } from './models/Jessie';
+import { Amber } from './models/Amber';
 // not needed as update to use the parameter model.
 // import { getResetClickCount } from './chat/Chat'; // 确保正确导入 resetClickCount
 
@@ -18,6 +20,18 @@ export const Experience = ({ client, model }) => {
   const [gravity, setGravity] = useState([0, 0, 0]);
   //not needed as update to use the parameter model.
   // const [resetClickCount, setResetClickCount] = useState(getResetClickCount()); // ✅ 记录点击次数
+
+  // avoid error when clicking Next
+  useEffect(() => {
+    // 设置清理函数，在组件卸载前调用
+    return () => {
+      // 如果有活跃的指针锁定，解除它
+      if (document.pointerLockElement) {
+        document.exitPointerLock();
+      }
+    };
+  }, []);
+
 
   useEffect(() => {
     setGravity([0, -9.81, 0]);
@@ -58,9 +72,11 @@ export const Experience = ({ client, model }) => {
         <Physics gravity={gravity}>
           <ConvaiFPS />
           {/* 根据 resetClickCount 切换模型 */}
-          {
+          { 
+            model == "Jessie" ? <Jessie client={client} /> :
+            model == "Amber" ? <Amber client={client} /> :
             model == "Ashline" ? <Ashline client={client} /> :
-            model == "Antoiane"  ? <Anoitane client={client} /> :
+            model == "Antoiane"  ? <Antoiane client={client} /> :
             model == "Charleen" ? <Charlene client={client} /> :
             <Jax client={client} />
           }

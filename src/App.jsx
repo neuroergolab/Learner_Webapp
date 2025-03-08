@@ -437,7 +437,7 @@ function App() {
     //   }
     // }
     if (currentStage === STAGES.MAIN_STUDY) {
-      if (userInteractions >= 1) {
+      if (userInteractions >= 2) {
         try {
           const timestamp = new Date().toISOString().replace(/[:.-]/g, "_");
           const filename = `chatHistory_${timestamp}.csv`;

@@ -79,7 +79,7 @@ export const Experience = ({ client, model }) => {
       <Sky sunPosition={[100, 50, 100]} turbidity={10} />
 
       {/* models */}
-      <Stats />
+      {/* <Stats /> */}
       <Suspense>
         <Physics gravity={gravity}>
           <ConvaiFPS />

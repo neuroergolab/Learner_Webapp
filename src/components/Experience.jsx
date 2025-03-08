@@ -13,6 +13,18 @@ import { Jax } from './models/Jax';
 import { Charlene } from './models/Charlene';
 import { Jessie, Jessiee } from './models/Jessie';
 import { Amber } from './models/Amber';
+import { Alfred } from './models/Alfred';
+import { Charleen } from './models/Charleen';
+import { David } from './models/David';
+import { Devon } from './models/Devon';
+import { Disire } from './models/Disire';
+import { Harry } from './models/Harry';
+import { India } from './models/India';
+import { Issac } from './models/Issac';
+import { James } from './models/James';
+import { Matthew } from './models/Matthew';
+import { Ronald } from './models/Ronald';
+import { Sadie } from './models/Sadie';
 // not needed as update to use the parameter model.
 // import { getResetClickCount } from './chat/Chat'; // 确保正确导入 resetClickCount
 
@@ -73,12 +85,24 @@ export const Experience = ({ client, model }) => {
           <ConvaiFPS />
           {/* 根据 resetClickCount 切换模型 */}
           { 
-            model == "Jessie" ? <Jessie client={client} /> :
+            model == "Alfred" ? <Alfred client={client} /> :
             model == "Amber" ? <Amber client={client} /> :
+            model == "Antoiane" ? <Antoiane client={client} /> :
             model == "Ashline" ? <Ashline client={client} /> :
-            model == "Antoiane"  ? <Antoiane client={client} /> :
-            model == "Charleen" ? <Charlene client={client} /> :
-            <Jax client={client} />
+            model == "Charleen" ? <Charleen client={client} /> :
+            model == "Charlene" ? <Charlene client={client} /> :
+            model == "David" ? <David client={client} /> :
+            model == "Devon" ? <Devon client={client} /> :
+            model == "Disire" ? <Disire client={client} /> :
+            model == "Harry" ? <Harry client={client} /> :
+            model == "India" ? <India client={client} /> :
+            model == "Issac" ? <Issac client={client} /> :
+            model == "James" ? <James client={client} /> :
+            model == "Jax" ? <Jax client={client} /> :
+            model == "Jessie"  ? <Jessie client={client} /> :
+            model == "Matthew" ? <Matthew client={client} /> :
+            model == "Ronald" ? <Ronald client={client} /> :
+            <Sadie client={client} />
           }
 
 

@@ -176,9 +176,9 @@ const ChatBubble = (props) => {
         </div>
       </div>
       */}
-
+{/* 
       {chatHistory === "Show" && <ChatHistory history={history} messages={messages} showHistory={showHistory} />}
-      <ChatBubblev1 npcText={client?.npcText} userText={client?.userText} messages={messages} keyPressed={client?.keyPressed} />
+      <ChatBubblev1 npcText={client?.npcText} userText={client?.userText} messages={messages} keyPressed={client?.keyPressed} /> */}
     </section>
   );
 };

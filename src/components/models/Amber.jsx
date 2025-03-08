@@ -4,7 +4,7 @@ import { useRPMLipsync } from '../../hooks/useRPMLipsync';
 import { useHeadTracking } from '../../hooks/useHeadTracking';
 
 export function Amber(props) {
-  const { nodes, materials, scene } = useGLTF(`${process.env.PUBLIC_URL}/models/anita.glb`);
+  const { nodes, materials, scene } = useGLTF(`${process.env.PUBLIC_URL}/models/Amber.glb`);
   const { animations } = useGLTF(`${process.env.PUBLIC_URL}/animations/animations.glb`);
 
   const anitaRef = useRef();
@@ -69,7 +69,7 @@ export function Amber(props) {
 }
 
 // 预加载 GLTF 模型和动画
-useGLTF.preload(`${process.env.PUBLIC_URL}/models/anita.glb`);
+useGLTF.preload(`${process.env.PUBLIC_URL}/models/Amber.glb`);
 useGLTF.preload(`${process.env.PUBLIC_URL}/animations/animations.glb`);
 
 // import { useAnimations, useGLTF } from '@react-three/drei';

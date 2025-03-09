@@ -182,6 +182,7 @@ function App() {
    * Resets the chat state when switching characters
    */
   const resetState = () => {
+    console.log("resetState for index=", currentIndex);
     setMessages([]);
     if (client?.convaiClient?.current) {
       client.convaiClient.current.resetSession();
@@ -189,12 +190,14 @@ function App() {
     client?.setUserText("");
     client?.setNpcText("");
     
-    // Clear the character's chat history in localStorage
+    // Clear the character's chat history in localStorage more thoroughly
     const characterId = CHARACTER_IDS[currentIndex];
     try {
+      // Get all stored messages
       const storedData = localStorage.getItem("messages");
       if (storedData) {
         const parsedData = JSON.parse(storedData);
+        // Clear this character's messages
         if (parsedData[characterId]) {
           parsedData[characterId] = {
             sessionID: -1,
@@ -202,9 +205,18 @@ function App() {
           };
           localStorage.setItem("messages", JSON.stringify(parsedData));
         }
+        
+        // Also ensure we're not viewing cached messages in the state
+        setMessages([]);
       }
     } catch (error) {
       console.error("Failed to reset localStorage:", error);
+      // As a fallback, try to clear all messages
+      try {
+        localStorage.removeItem("messages");
+      } catch (e) {
+        console.error("Failed to remove all messages:", e);
+      }
     }
     
     // Reset and show interaction cue when switching characters
@@ -219,10 +231,52 @@ function App() {
     return Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
   };
 
-  /**
-   * Gets the current chat history from localStorage
-   * @returns {Array} Array of message objects
-   */
+  const clearAllMessageData = () => {
+    try {
+      // 完全删除localStorage中的messages条目
+      localStorage.removeItem("messages");
+      console.log("所有消息数据已清除");
+      
+      // 重置状态中的messages数组
+      setMessages([]);
+      
+      // 如果client存在，重置convai客户端会话
+      if (client?.convaiClient?.current) {
+        client.convaiClient.current.resetSession();
+      }
+      
+      // 重置客户端文本输入状态
+      client?.setUserText("");
+      client?.setNpcText("");
+      
+      // 显示交互提示
+      setShowInteractionCue(true);
+    } catch (error) {
+      console.error("清除所有消息数据失败:", error);
+    }
+  };
+
+  // /**
+  //  * Gets the current chat history from localStorage
+  //  * @returns {Array} Array of message objects
+  //  */
+  // const getStoredMessages = () => {
+  //   try {
+  //     const characterId = CHARACTER_IDS[currentIndex];
+  //     const storedData = localStorage.getItem("messages");
+      
+  //     if (storedData) {
+  //       const parsedData = JSON.parse(storedData);
+  //       if (parsedData[characterId] && Array.isArray(parsedData[characterId].message)) {
+  //         return parsedData[characterId].message;
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error("Failed to get stored messages:", error);
+  //   }
+  //   return [];
+  // };
+  // Also modify getStoredMessages to ensure we only get messages for the current character
   const getStoredMessages = () => {
     try {
       const characterId = CHARACTER_IDS[currentIndex];
@@ -231,12 +285,14 @@ function App() {
       if (storedData) {
         const parsedData = JSON.parse(storedData);
         if (parsedData[characterId] && Array.isArray(parsedData[characterId].message)) {
+          console.log(`Retrieved ${parsedData[characterId].message.length} messages for character ${characterId}`);
           return parsedData[characterId].message;
         }
       }
     } catch (error) {
       console.error("Failed to get stored messages:", error);
     }
+    console.log("No stored messages found, returning empty array");
     return [];
   };
 
@@ -299,20 +355,115 @@ function App() {
 
   };
 
+  // /**
+  //  * Handles the Next/Questionnaire button action based on current stage
+  //  */
+  // const handleNextOrQuestionnaire = async () => {
+  //   // Get latest messages from localStorage
+  //   const currentMessages = getStoredMessages();
+    
+  //   // Check if user has had enough interactions (at least 5 messages from user)
+  //   const userInteractions = currentMessages.filter(msg => msg.sender === "user").length;
+    
+  //   // For practice mode, just switch to next character
+  //   if (currentStage === STAGES.PRACTICE) {
+  //     if (userInteractions >= 1 || true) { // During practice, we could be more lenient with interaction count
+  //       // If first practice character, move to second
+  //       if (currentIndex === 0) {
+  //         resetState();
+  //         safeSetLocalStorage("currentIndex", 1);
+  //         setCurrentIndex(1);
+  //       } else if (currentIndex === 1) {
+  //         resetState();
+  //         setCurrentStage(STAGES.PRACTICE_COMPLETE);
+  //         safeSetLocalStorage("currentStage", STAGES.PRACTICE_COMPLETE);
+  //       }
+  //     } else {
+  //       setShowWarning(true);
+  //       setTimeout(() => setShowWarning(false), 2000);
+  //     }
+  //     return;
+  //   }
+    
+  //   if (currentStage === STAGES.MAIN_STUDY) {
+  //     if (userInteractions >= 2) {
+  //       try {
+  //         const timestamp = new Date().toISOString().replace(/[:.-]/g, "_");
+  //         const filename = `chatHistory_${timestamp}.csv`;
+  //         const csvData = convertMessagesToCSV(currentMessages);
+  //         const response = await uploadData(filename, csvData);
+          
+  //         if (response.ok) {
+  //           console.log(`Chat history uploaded successfully as ${filename}`);
+  //         } else {
+  //           console.error("Failed to upload chat history:", response.statusText);
+  //         }
+    
+  //         const userID = localStorage.getItem("userID");
+  //         const params = new URLSearchParams({
+  //           userID,
+  //           design_conduct: CHARACTER_CONDUCT[currentIndex],
+  //           design_neurodiversity: CHARACTER_NEURODIVERSITY[currentIndex]
+  //         });
+    
+  //         resetState();
+    
+  //         const newPosition = orderPosition + 1;
+          
+  //         // 修正后的逻辑：使用准确的数组长度判断
+  //         if (newPosition < randomOrder.length) { // randomOrder.length是16（索引0-15）
+  //           // 常规情况：继续下一个NPC
+  //           setOrderPosition(newPosition);
+  //           safeSetLocalStorage("orderPosition", newPosition);
+  //           const nextIndex = randomOrder[newPosition];
+  //           safeSetLocalStorage("currentIndex", nextIndex);
+  //           setCurrentIndex(nextIndex);
+            
+  //           // 跳转常规问卷
+  //           window.location.href = `https://uwmadison.co1.qualtrics.com/jfe/form/SV_2hKNzkX1dhIgJIW?${params.toString()}`;
+  //         } else {
+            
+  //           // 完成所有NPC：进入AI准备阶段
+  //           // setCurrentStage(STAGES.AI_READINESS);
+  //           safeSetLocalStorage("currentStage", STAGES.AI_READINESS);
+  //           // 跳转常规问卷
+  //           window.location.href = `https://uwmadison.co1.qualtrics.com/jfe/form/SV_2hKNzkX1dhIgJIW?${params.toString()}`;
+  //           // 重置位置但不跳转问卷
+  //           setOrderPosition(0);
+  //           safeSetLocalStorage("orderPosition", 0);
+  //           const firstIndex = randomOrder[0];
+  //           safeSetLocalStorage("currentIndex", firstIndex);
+  //           setCurrentIndex(firstIndex);
+            
+  //           // 重要：不执行问卷跳转，直接显示AI准备界面
+  //         }
+  //       } catch (error) {
+  //         console.error("Error in questionnaire handling:", error);
+  //       }
+  //     } else {
+  //       setShowWarning(true);
+  //       setTimeout(() => setShowWarning(false), 2000);
+  //     }
+  //   }
+  // };
   /**
-   * Handles the Next/Questionnaire button action based on current stage
+ * Handles the Next/Questionnaire button action based on current stage
+ */
+  /**
+   * 处理Next/Questionnaire按钮动作
    */
   const handleNextOrQuestionnaire = async () => {
-    // Get latest messages from localStorage
+    // 获取当前角色的最新消息
     const currentMessages = getStoredMessages();
     
-    // Check if user has had enough interactions (at least 5 messages from user)
+    // 检查用户是否有足够的交互（至少2条用户消息）
     const userInteractions = currentMessages.filter(msg => msg.sender === "user").length;
+    console.log(`当前用户交互次数: ${userInteractions}`);
     
-    // For practice mode, just switch to next character
+    // 练习模式处理逻辑
     if (currentStage === STAGES.PRACTICE) {
-      if (userInteractions >= 1 || true) { // During practice, we could be more lenient with interaction count
-        // If first practice character, move to second
+      // 练习阶段代码保持不变...
+      if (userInteractions >= 1 || true) {
         if (currentIndex === 0) {
           resetState();
           safeSetLocalStorage("currentIndex", 1);
@@ -329,127 +480,23 @@ function App() {
       return;
     }
     
-    // // For main study, handle questionnaire
-    // if (currentStage === STAGES.MAIN_STUDY) {
-    //   if (userInteractions >= 0) {
-    //     try {
-    //       const timestamp = new Date().toISOString().replace(/[:.-]/g, "_");
-    //       const filename = `chatHistory_${timestamp}.csv`;
-    //       const csvData = convertMessagesToCSV(currentMessages);
-    //       const response = await uploadData(filename, csvData);
-    //       if (response.ok) {
-    //         console.log(`Chat history uploaded successfully as ${filename}`);
-    //       } else {
-    //         console.error("Failed to upload chat history:", response.statusText);
-    //       }
-          
-    //       // 直接获取已保存的 userID
-    //       const userID = localStorage.getItem("userID");
-    //       const params = new URLSearchParams({
-    //         userID,
-    //         design_conduct: CHARACTER_CONDUCT[currentIndex],
-    //         design_neurodiversity: CHARACTER_NEURODIVERSITY[currentIndex]
-    //       });
-          
-    //       resetState();
-          
-    //       const newPosition = orderPosition + 1;
-    //       if (newPosition < randomOrder.length) {
-    //         setOrderPosition(newPosition);
-    //         safeSetLocalStorage("orderPosition", newPosition);
-    //         const nextIndex = randomOrder[newPosition];
-    //         safeSetLocalStorage("currentIndex", nextIndex);
-    //         setCurrentIndex(nextIndex);
-    //       } else {
-    //         setOrderPosition(0);
-    //         safeSetLocalStorage("orderPosition", 0);
-    //         const firstIndex = randomOrder[0];
-    //         safeSetLocalStorage("currentIndex", firstIndex);
-    //         setCurrentIndex(firstIndex);
-    //       }
-          
-    //       window.location.href = `https://uwmadison.co1.qualtrics.com/jfe/form/SV_2hKNzkX1dhIgJIW?${params.toString()}`;
-    //     } catch (error) {
-    //       console.error("Error in questionnaire handling:", error);
-    //     }
-    //   } else {
-    //     setShowWarning(true);
-    //     setTimeout(() => setShowWarning(false), 2000);
-    //   }
-    // }
-    // For main study, handle questionnaire
-    // if (currentStage === STAGES.MAIN_STUDY) {
-    //   if (userInteractions >= 0) {
-    //     try {
-    //       const timestamp = new Date().toISOString().replace(/[:.-]/g, "_");
-    //       const filename = `chatHistory_${timestamp}.csv`;
-    //       const csvData = convertMessagesToCSV(currentMessages);
-    //       const response = await uploadData(filename, csvData);
-          
-    //       if (response.ok) {
-    //         console.log(`Chat history uploaded successfully as ${filename}`);
-    //       } else {
-    //         console.error("Failed to upload chat history:", response.statusText);
-    //       }
-
-    //       const userID = localStorage.getItem("userID");
-    //       const params = new URLSearchParams({
-    //         userID,
-    //         design_conduct: CHARACTER_CONDUCT[currentIndex],
-    //         design_neurodiversity: CHARACTER_NEURODIVERSITY[currentIndex]
-    //       });
-
-    //       resetState();
-
-    //       const newPosition = orderPosition + 1;
-          
-    //       // 修改后的逻辑：检查是否完成所有NPC
-    //       if (newPosition < randomOrder.length + 1) {
-    //         // 常规情况：继续下一个NPC
-    //         setOrderPosition(newPosition);
-    //         safeSetLocalStorage("orderPosition", newPosition);
-    //         const nextIndex = randomOrder[newPosition];
-    //         safeSetLocalStorage("currentIndex", nextIndex);
-    //         setCurrentIndex(nextIndex);
-            
-    //         // 跳转常规问卷
-    //         window.location.href = `https://uwmadison.co1.qualtrics.com/jfe/form/SV_2hKNzkX1dhIgJIW?${params.toString()}`;
-    //       } else {
-    //         // 完成所有NPC：进入AI准备阶段
-    //         setCurrentStage(STAGES.AI_READINESS);
-    //         safeSetLocalStorage("currentStage", STAGES.AI_READINESS);
-            
-    //         // 重置位置但不跳转问卷
-    //         setOrderPosition(0);
-    //         safeSetLocalStorage("orderPosition", 0);
-    //         const firstIndex = randomOrder[0];
-    //         safeSetLocalStorage("currentIndex", firstIndex);
-    //         setCurrentIndex(firstIndex);
-            
-    //         // 直接显示AI准备界面，不自动跳转
-    //       }
-    //     } catch (error) {
-    //       console.error("Error in questionnaire handling:", error);
-    //     }
-    //   } else {
-    //     setShowWarning(true);
-    //     setTimeout(() => setShowWarning(false), 2000);
-    //   }
-    // }
+    // MainStudy阶段处理
     if (currentStage === STAGES.MAIN_STUDY) {
-      if (userInteractions >= 2) {
+      if (userInteractions >= 0) {
         try {
+          // 上传聊天记录逻辑保持不变
           const timestamp = new Date().toISOString().replace(/[:.-]/g, "_");
           const filename = `chatHistory_${timestamp}.csv`;
           const csvData = convertMessagesToCSV(currentMessages);
           const response = await uploadData(filename, csvData);
           
           if (response.ok) {
-            console.log(`Chat history uploaded successfully as ${filename}`);
+            console.log(`聊天记录成功上传为 ${filename}`);
           } else {
-            console.error("Failed to upload chat history:", response.statusText);
+            console.error("上传聊天记录失败:", response.statusText);
           }
     
+          // 获取用户ID和参数
           const userID = localStorage.getItem("userID");
           const params = new URLSearchParams({
             userID,
@@ -457,44 +504,73 @@ function App() {
             design_neurodiversity: CHARACTER_NEURODIVERSITY[currentIndex]
           });
     
-          resetState();
-    
+          // 关键修改: 彻底清除所有消息数据
+          clearAllMessageData();
+          
+          // 更新角色位置
           const newPosition = orderPosition + 1;
           
-          // 修正后的逻辑：使用准确的数组长度判断
-          if (newPosition < randomOrder.length) { // randomOrder.length是16（索引0-15）
-            // 常规情况：继续下一个NPC
+          // 检查是否完成所有角色
+          if (newPosition < randomOrder.length) {
+            // 继续下一个NPC
             setOrderPosition(newPosition);
             safeSetLocalStorage("orderPosition", newPosition);
             const nextIndex = randomOrder[newPosition];
             safeSetLocalStorage("currentIndex", nextIndex);
             setCurrentIndex(nextIndex);
             
-            // 跳转常规问卷
+            // 重定向到问卷前，确保localStorage中的messages已被清除
+            localStorage.removeItem("messages");
+            
+            // 跳转到问卷
             window.location.href = `https://uwmadison.co1.qualtrics.com/jfe/form/SV_2hKNzkX1dhIgJIW?${params.toString()}`;
           } else {
-            
-            // 完成所有NPC：进入AI准备阶段
-            // setCurrentStage(STAGES.AI_READINESS);
+            // 完成所有NPC，进入AI准备阶段
             safeSetLocalStorage("currentStage", STAGES.AI_READINESS);
-            // 跳转常规问卷
+            
+            // 重定向到此角色的最终问卷前，确保localStorage中的messages已被清除
+            localStorage.removeItem("messages");
+            
+            // 跳转到问卷
             window.location.href = `https://uwmadison.co1.qualtrics.com/jfe/form/SV_2hKNzkX1dhIgJIW?${params.toString()}`;
-            // 重置位置但不跳转问卷
+            
+            // 重置位置
             setOrderPosition(0);
             safeSetLocalStorage("orderPosition", 0);
             const firstIndex = randomOrder[0];
             safeSetLocalStorage("currentIndex", firstIndex);
             setCurrentIndex(firstIndex);
-            
-            // 重要：不执行问卷跳转，直接显示AI准备界面
           }
         } catch (error) {
-          console.error("Error in questionnaire handling:", error);
+          console.error("问卷处理过程中出错:", error);
         }
       } else {
+        // 如果交互不足，显示警告
         setShowWarning(true);
         setTimeout(() => setShowWarning(false), 2000);
       }
+    }
+  };
+
+  // 修改一个守卫函数，确保在页面加载/返回时也清除消息
+  const ensureCleanState = () => {
+    // 检查当前阶段
+    const currentStage = getSavedStage();
+    
+    // 如果从问卷返回到MAIN_STUDY阶段，确保消息被清除
+    if (currentStage === STAGES.MAIN_STUDY) {
+      // 尝试检查是否刚从问卷返回（可以通过referrer或时间戳等方式）
+      const timestamp = new Date().getTime();
+      const lastRedirect = localStorage.getItem("lastRedirectTime") || 0;
+      
+      // 如果刚刚返回（30秒内）
+      if (timestamp - lastRedirect < 30000) {
+        console.log("检测到从问卷返回，清除所有消息");
+        clearAllMessageData();
+      }
+      
+      // 无论如何，更新此时间戳
+      safeSetLocalStorage("lastRedirectTime", timestamp);
     }
   };
 
@@ -550,45 +626,60 @@ function App() {
   //     resetState();
   //   }
   // }, []);
-    useEffect(() => {
-      // 从localStorage读取所有持久化数据
-      const savedIndex = getSavedIndex();
-      const savedStage = getSavedStage();
-      const savedRandomOrder = getSavedRandomOrder();
-      const savedOrderPosition = getSavedOrderPosition();
-    
-      // 确保userID存在（所有阶段都需要）
-      let uid = localStorage.getItem("userID");
-      if (!uid) {
-        uid = generateUserID();
-        safeSetLocalStorage("userID", uid);
-      }
-    
-      // 强制同步关键状态（不再依赖currentIndex/currentStage的现有值）
-      setRandomOrder(prev => {
-        // 只有当未初始化时才设置随机顺序
-        if (prev.length === 0) return savedRandomOrder;
-        return prev;
-      });
+// Modify useEffect to ensure we clear messages on first load if needed
+// 在useEffect中调用确保清洁状态的函数
+useEffect(() => {
+  // From localStorage read all persistent data
+  const savedIndex = getSavedIndex();
+  const savedStage = getSavedStage();
+  const savedRandomOrder = getSavedRandomOrder();
+  const savedOrderPosition = getSavedOrderPosition();
+  
+  // Ensure userID exists (needed for all stages)
+  let uid = localStorage.getItem("userID");
+  if (!uid) {
+    uid = generateUserID();
+    safeSetLocalStorage("userID", uid);
+  }
+  
+  // Force synchronize key states
+  setRandomOrder(prev => {
+    // Only set random order when uninitialized
+    if (prev.length === 0) return savedRandomOrder;
+    return prev;
+  });
       
-      setOrderPosition(savedOrderPosition);
-      setCurrentIndex(savedIndex);
-      setCurrentStage(savedStage);  // 关键修改：强制设置阶段
-    
-      // 重置状态的条件判断（需要stage/index实际变化时才执行）
-      if (
-        savedIndex !== currentIndex || 
-        savedStage !== currentStage
-      ) {
-        resetState();
-      }
-    
-      // 确保localStorage存储最新随机顺序（如果之前未存储）
-      if (savedRandomOrder && savedRandomOrder.length > 0) {
-        safeSetLocalStorage("randomOrder", JSON.stringify(savedRandomOrder));
-      }
-    }, []); // 保持空依赖数组，仅运行一次
-
+  setOrderPosition(savedOrderPosition);
+      
+  // Important: Set the currentIndex before setting currentStage
+  setCurrentIndex(savedIndex);
+  setCurrentStage(savedStage);
+   
+  // Reset state if stage/index has changed
+  if (savedIndex !== currentIndex || savedStage !== currentStage) {
+    // Force clear any cached messages
+    setMessages([]);
+    resetState();
+  }
+  
+  // Ensure localStorage stores the latest random order (if not stored previously)
+  if (savedRandomOrder && savedRandomOrder.length > 0) {
+    safeSetLocalStorage("randomOrder", JSON.stringify(savedRandomOrder));
+  }
+  
+  // 确保清洁状态
+  ensureCleanState();
+  
+  // 如果跳转问卷前，记录时间戳
+  window.addEventListener("beforeunload", () => {
+    const timestamp = new Date().getTime();
+    safeSetLocalStorage("lastRedirectTime", timestamp);
+  });
+  
+  return () => {
+    window.removeEventListener("beforeunload", () => {});
+  };
+}, [currentIndex, currentStage]); // 添加依赖项以正确跟踪变化
   // Initialize Convai client with current character
   const { client } = useConvaiClient(
     CHARACTER_IDS[currentIndex],

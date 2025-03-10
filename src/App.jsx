@@ -482,7 +482,7 @@ function App() {
     
     // MainStudy阶段处理
     if (currentStage === STAGES.MAIN_STUDY) {
-      if (userInteractions >= 0) {
+      if (userInteractions >= 5) {
         try {
           // 上传聊天记录逻辑保持不变
           const timestamp = new Date().toISOString().replace(/[:.-]/g, "_");

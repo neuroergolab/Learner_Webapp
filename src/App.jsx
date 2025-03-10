@@ -522,8 +522,8 @@ function App() {
             // 重定向到问卷前，确保localStorage中的messages已被清除
             localStorage.removeItem("messages");
             
-            // // 跳转到问卷
-            // window.location.href = `https://uwmadison.co1.qualtrics.com/jfe/form/SV_2hKNzkX1dhIgJIW?${params.toString()}`;
+            // 跳转到问卷
+            window.location.href = `https://uwmadison.co1.qualtrics.com/jfe/form/SV_1EWpZcb7kNte62y?${params.toString()}`;
           } else {
             // 完成所有NPC，进入AI准备阶段
             safeSetLocalStorage("currentStage", STAGES.AI_READINESS);
@@ -531,8 +531,8 @@ function App() {
             // 重定向到此角色的最终问卷前，确保localStorage中的messages已被清除
             localStorage.removeItem("messages");
             
-            // // 跳转到问卷
-            // window.location.href = `https://uwmadison.co1.qualtrics.com/jfe/form/SV_2hKNzkX1dhIgJIW?${params.toString()}`;
+            // 跳转到问卷
+            window.location.href = `https://uwmadison.co1.qualtrics.com/jfe/form/SV_1EWpZcb7kNte62y?${params.toString()}`;
             
             // 重置位置
             setOrderPosition(0);
@@ -864,7 +864,7 @@ useEffect(() => {
             onMouseEnter={(e) => (e.target.style.backgroundColor = "rgba(70, 70, 70, 0.9)")}
             onMouseLeave={(e) => (e.target.style.backgroundColor = "rgba(50, 50, 50, 0.7)")}
           >
-            GO
+            NEXT
           </div>
         </div>
       </div>

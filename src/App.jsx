@@ -522,8 +522,8 @@ function App() {
             // 重定向到问卷前，确保localStorage中的messages已被清除
             localStorage.removeItem("messages");
             
-            // 跳转到问卷
-            window.location.href = `https://uwmadison.co1.qualtrics.com/jfe/form/SV_2hKNzkX1dhIgJIW?${params.toString()}`;
+            // // 跳转到问卷
+            // window.location.href = `https://uwmadison.co1.qualtrics.com/jfe/form/SV_2hKNzkX1dhIgJIW?${params.toString()}`;
           } else {
             // 完成所有NPC，进入AI准备阶段
             safeSetLocalStorage("currentStage", STAGES.AI_READINESS);
@@ -531,8 +531,8 @@ function App() {
             // 重定向到此角色的最终问卷前，确保localStorage中的messages已被清除
             localStorage.removeItem("messages");
             
-            // 跳转到问卷
-            window.location.href = `https://uwmadison.co1.qualtrics.com/jfe/form/SV_2hKNzkX1dhIgJIW?${params.toString()}`;
+            // // 跳转到问卷
+            // window.location.href = `https://uwmadison.co1.qualtrics.com/jfe/form/SV_2hKNzkX1dhIgJIW?${params.toString()}`;
             
             // 重置位置
             setOrderPosition(0);
@@ -720,10 +720,20 @@ useEffect(() => {
           color: "white",
           textAlign: "center"
         }}>
-          <h2 style={{ marginBottom: "40px", fontSize: "36px" }}>Practice Instructions</h2>
-          <p style={{ fontSize: "24px", marginBottom: "20px" }}>
-            Next you will talk to two virtual citizens for practice, feel free to ask them anything and get familiar with our virtual citizens through this process.
+          {/* <h2 style={{ marginBottom: "40px", fontSize: "36px" }}>Practice Instructions</h2> */}
+          <p style={{ fontSize: "24px", marginBottom: "16px" ,fontWeight: "bold" }}>
+            Next you will now be entering the PRACTICE SESSIONS.
           </p>
+          <p style={{ fontSize: "20px", marginBottom: "16px" }}>
+            There will be 2 consecutive practice sessions with an AI NPC.
+          </p>
+          <p style={{ fontSize: "20px", marginBottom: "16px" }}>
+            Your task is to interact with them and get acquainted with the interaction experience.
+          </p>
+          <p style={{ fontSize: "20px", marginBottom: "16px" }}>
+            You will be provided with a set of interaction cues in each session.
+          </p>
+          <p style={{ fontSize: "20px", marginBottom: "16px" }}>Please click on NEXT below when you are ready to begin.</p>
           <div 
             onClick={handleStartPractice}
             style={{
@@ -743,7 +753,7 @@ useEffect(() => {
             onMouseEnter={(e) => (e.target.style.backgroundColor = "rgba(70, 70, 70, 0.9)")}
             onMouseLeave={(e) => (e.target.style.backgroundColor = "rgba(50, 50, 50, 0.7)")}
           >
-            GO
+            NEXT
           </div>
         </div>
       </div>
@@ -773,9 +783,14 @@ useEffect(() => {
           color: "white",
           textAlign: "center"
         }}>
-          <h2 style={{ marginBottom: "40px", fontSize: "36px" }}>Welcome to our web application!</h2>
-          <p style={{ fontSize: "24px", marginBottom: "20px" }}>You can interact with several virtual citizens here and have fun!</p>
-          <p style={{ fontSize: "24px", marginBottom: "20px" }}>First we will get into two practice trials for you to get easy with interacting with these virtual citizens.</p>
+          {/* <h2 style={{ marginBottom: "40px", fontSize: "16px" }}>Welcome to the Human Factors Evaluation of Gen-AI based NPC Interactions in Public Safety Training!</h2> */}
+          <p style={{ marginBottom: "16px", fontSize: "24px", fontWeight: "bold" }}>
+            Welcome to the Human Factors Evaluation of Gen-AI based NPC Interactions in Public Safety Training!
+          </p>
+          <p style={{ fontSize: "24px", marginBottom: "16px" }}>In this study, you will interact with Gen-AI based non-playable characters.</p>
+          <p style={{ fontSize: "24px", marginBottom: "16px" }}>You will ask them a series of questions as prompted.</p>
+          <p style={{ fontSize: "24px", marginBottom: "16px" }}>Before you begin the tasks, we will first ask you to fill two surveys.</p>
+          <p style={{ fontSize: "24px", marginBottom: "16px" }}>Please click on BEGIN STUDY below when you are ready to begin.</p>
           <div 
             onClick={handleWelcomeGo}
             style={{
@@ -795,7 +810,7 @@ useEffect(() => {
             onMouseEnter={(e) => (e.target.style.backgroundColor = "rgba(70, 70, 70, 0.9)")}
             onMouseLeave={(e) => (e.target.style.backgroundColor = "rgba(50, 50, 50, 0.7)")}
           >
-            GO
+            BEGIN STUDY
           </div>
         </div>
       </div>
@@ -826,10 +841,11 @@ useEffect(() => {
           textAlign: "center",
           fontSize: "25px"
         }}>
-          <h2 style={{ marginBottom: "40px" }}>Practice Complete!</h2> 
-          <p>Now we are going to the main study, in this study, you need to PRESS [T] to talk with 16 different virtual citizens.</p>
-          <p>For each trial, you need to have at least 5 interactions with the current citizen.</p>
-          <p>After each trial you will answer three questionnaires concerning your interaction experiences.</p>
+          {/* <h2 style={{ marginBottom: "40px" }}>Practice Complete!</h2>  */}
+          <p style={{ fontSize: "24px", marginBottom: "16px" }}>Thank you for completing the practice sessions.</p>
+          <p style={{ fontSize: "24px", marginBottom: "16px" }}>You will now begin the actual study sessions.</p>
+          <p style={{ fontSize: "24px", marginBottom: "16px" }}>There will be 16 consecutive sessions with an AI NPC.</p>
+          <p style={{ fontSize: "24px", marginBottom: "16px" }}>Please click on NEXT below when you are ready to begin.</p>
           <div 
             onClick={handleStartMainStudy}
             style={{
@@ -878,13 +894,12 @@ useEffect(() => {
           color: "white",
           textAlign: "center"
         }}>
-          <h2 style={{ marginBottom: "40px", fontSize: "36px" }}>Thank you for your effort!</h2>
-          <p style={{ fontSize: "24px", marginBottom: "20px" }}>
-            Thank you for your effort in talking to 16 virtual citizens! You are almost at the end!
-          </p>
-          <p style={{ fontSize: "24px", marginBottom: "20px" }}>
-            Next please fill in a questionnaire again.
-          </p>
+          {/* <h2 style={{ marginBottom: "40px", fontSize: "36px" }}></h2>
+           */}
+          <p style={{ fontSize: "24px", marginBottom: "16px" }}>Thank you for completing the study trials.</p>
+          <p style={{ fontSize: "24px", marginBottom: "16px", fontWeight:"bold" }}>We are almost done!</p>
+          <p style={{ fontSize: "24px", marginBottom: "16px" }}>Next you will answer few end-of-study surveys.</p>
+          <p style={{ fontSize: "24px", marginBottom: "16px" }}>Please click on NEXT below when you are ready to begin.</p>
           <div 
             onClick={handleAISurvey}
             style={{
@@ -904,7 +919,7 @@ useEffect(() => {
             onMouseEnter={(e) => (e.target.style.backgroundColor = "rgba(70, 70, 70, 0.9)")}
             onMouseLeave={(e) => (e.target.style.backgroundColor = "rgba(50, 50, 50, 0.7)")}
           >
-            GO
+            NEXT
           </div>
         </div>
       </div>
@@ -935,9 +950,12 @@ useEffect(() => {
           color: "white",
           textAlign: "center"
         }}>
-          <h2 style={{ marginBottom: "40px", fontSize: "36px" }}>Thank you for participating!</h2>
+          <h2 style={{ marginBottom: "40px", fontSize: "36px", fontWeight:"bold" }}>Thank you for completing the study!</h2>
           <p style={{ fontSize: "24px", marginBottom: "20px" }}>
-            Now you are done! Remember this code and fill it in the blank at the final page:
+            Now you are done! 
+          </p>
+          <p style={{ fontSize: "24px", marginBottom: "20px" }}>
+            Please insert this completion code to the mTurk study page: 
           </p>
           <div style={{ 
             fontSize: "48px", 
@@ -948,6 +966,9 @@ useEffect(() => {
           }}>
             {completionCode}
           </div>
+          <p style={{ fontSize: "24px", marginBottom: "20px" }}>
+            This code is not resuable. 
+          </p>
           <div 
             onClick={() => window.close()} // 或跳转到指定URL
             style={{
@@ -974,45 +995,46 @@ useEffect(() => {
     );
   }
   
-
-  // For practice or main study stages, render the main app UI
-  return (
-    <>
-      <div
-        style={{
-          position: "absolute",
-          top: "10px",
-          right: "10px",
-          backgroundColor: "rgba(0, 0, 0, 0.7)",
-          borderRadius: "10px",
-          width: "8vw",
-          height: "2.5vw",
-          color: "white",
-          display: "flex",
-          justifyContent: "center",
-          cursor: "pointer",
-          zIndex: 1000,
-        }}
-        onMouseEnter={(e) => (e.target.style.backgroundColor = "rgba(0, 0, 0, 1)")}
-        onMouseLeave={(e) => (e.target.style.backgroundColor = "rgba(0, 0, 0, 0.7)")}
-        onClick={handleNextOrQuestionnaire}
-      >
+  if (currentStage === STAGES.PRACTICE) {
+    const completionCode = localStorage.getItem("completionCode") || "XXXXXX";
+ // For practice or main study stages, render the main app UI
+    return (
+      <>
         <div
           style={{
-            alignSelf: "center",
+            position: "absolute",
+            top: "10px",
+            right: "10px",
+            backgroundColor: "rgba(0, 0, 0, 0.7)",
+            borderRadius: "10px",
+            width: "8vw",
+            height: "2.5vw",
+            color: "white",
             display: "flex",
-            flexDirection: "column",
             justifyContent: "center",
-            fontWeight: "bold",
+            cursor: "pointer",
+            zIndex: 1000,
           }}
+          onMouseEnter={(e) => (e.target.style.backgroundColor = "rgba(0, 0, 0, 1)")}
+          onMouseLeave={(e) => (e.target.style.backgroundColor = "rgba(0, 0, 0, 0.7)")}
+          onClick={handleNextOrQuestionnaire}
         >
-          <p style={{ fontSize: "0.78vw" }}>
-            {currentStage === STAGES.PRACTICE ? "Next" : "Questionnaire"}
-          </p>
+          <div
+            style={{
+              alignSelf: "center",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              fontWeight: "bold",
+            }}
+          >
+            <p style={{ fontSize: "1vw" }}>
+              {currentStage === STAGES.PRACTICE ? "Next" : "Questionnaire"}
+            </p>
+          </div>
         </div>
-      </div>
 
-      {showInteractionCue && (
+       {showInteractionCue && (
         <div
           style={{
             position: "absolute",
@@ -1021,80 +1043,338 @@ useEffect(() => {
             backgroundColor: "rgba(0, 0, 0, 0.7)",
             borderRadius: "20px",
             width: "35vw",
-            height: "25vh",
+            height: "35vh",
             color: "white",
             zIndex: 1000,
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
-            padding: "5px"
+            padding: "5px"  // 如有需要可适当减小
           }}
         >
-          <div style={{ textAlign: "center" }}>
-            <p style={{ fontSize: "1.7vw", marginBottom: "5px" }}>Interaction Cue</p>
-            <ol style={{ fontSize: "1.5vw", margin: "5px", textAlign: "left" }}>
-              <li>Introduce yourself to this virtual citizen</li>
-              <li>Greet them and ask their name</li>
-              <li>Ask them what the situation</li>
-              <li>Ask their feelings</li>
-              <li>*PRESS [T] TO TALK TO THEM!</li>
+          <div style={{ textAlign: "left" }}>
+              <p style={{ fontSize: "1.2vw", marginBottom: "5px"}}>Press [T] to talk to the NPC, and release [T] after following each prompt below.</p>
+              <p style={{ fontSize: "1.2vw", marginBottom: "5px" }}>Please wait until the NPC finishes responding before following the next prompt.</p>
+              <p style={{ fontSize: "1.2vw", marginBottom: "5px", fontWeight: "bold" }}>Prompts:</p>
+            <ol style={{ fontSize: "1.2vw", margin: "5px", textAlign: "left" }}>
+              {/* <li>Press [T] to talk to the NPC, and release [T] when you have followed each instruction below:</li> */}
+              <li>Introduce yourself to the NPC and greet them.</li>
+              <li>Ask for their name.</li>
+              <li>Ask them about their favorite game.</li>
+              <li>Ask them about an amazing fact they know.</li>
             </ol>
           </div>
-          <div style={{ marginTop: "20px" }}>
+          {/* 修改此处的 marginTop 值或删除 */}
+          <div style={{ marginTop: "5px" }}>
             <p style={{ textAlign: "center" }}></p>
           </div>
         </div>
       )}
 
-      {showWarning && (
-        <div style={{
-          position: "fixed",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          backgroundColor: "rgba(255,0,0,0.9)",
-          color: "white",
-          padding: "40px",
-          borderRadius: "16px",
-          zIndex: 9999,
-          fontSize: "2em"
-        }}>
-          Minimum 5 interactions required!
-        </div>
-      )}
+        {showWarning && (
+          <div style={{
+            position: "fixed",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            backgroundColor: "rgba(255,0,0,0.9)",
+            color: "white",
+            padding: "40px",
+            borderRadius: "16px",
+            zIndex: 9999,
+            fontSize: "2em"
+          }}>
+            Minimum 5 interactions required!
+          </div>
+        )}
 
-      <KeyboardControls
-        map={[
-          { name: "forward", keys: ["ArrowUp", "w", "W"] },
-          { name: "backward", keys: ["ArrowDown", "s", "S"] },
-          { name: "left", keys: ["ArrowLeft", "a", "A"] },
-          { name: "right", keys: ["ArrowRight", "d", "D"] },
-          { name: "sprint", keys: ["Shift"] },
-          { name: "jump", keys: ["Space"] },
-        ]}
-      >
-        <Loader />
-        <Canvas
-          shadows
-          camera={{
-            position: [0, 0.8, 3],
-            fov: 75,
-          }}
-          key={CHARACTER_IDS[currentIndex]} // Force canvas re-creation on character change
+        <KeyboardControls
+          map={[
+            { name: "forward", keys: ["ArrowUp", "w", "W"] },
+            { name: "backward", keys: ["ArrowDown", "s", "S"] },
+            { name: "left", keys: ["ArrowLeft", "a", "A"] },
+            { name: "right", keys: ["ArrowRight", "d", "D"] },
+            { name: "sprint", keys: ["Shift"] },
+            { name: "jump", keys: ["Space"] },
+          ]}
         >
-          <Experience client={client} model={CHARACTER_MODELS[currentIndex]} />
-        </Canvas>
-      </KeyboardControls>
-      <ChatBubble
-        client={client}
-        llmModel={CHARACTER_LLM[currentIndex]}
-        llmConduct={CHARACTER_CONDUCT[currentIndex]}
-        llmNeuro={CHARACTER_NEURODIVERSITY[currentIndex]}
-        onNewMessage={handleNewMessage}
-      />
-    </>
-  );
+          <Loader />
+          <Canvas
+            shadows
+            camera={{
+              position: [0, 0.8, 3],
+              fov: 75,
+            }}
+            key={CHARACTER_IDS[currentIndex]} // Force canvas re-creation on character change
+          >
+            <Experience client={client} model={CHARACTER_MODELS[currentIndex]} />
+          </Canvas>
+        </KeyboardControls>
+        <ChatBubble
+          client={client}
+          llmModel={CHARACTER_LLM[currentIndex]}
+          llmConduct={CHARACTER_CONDUCT[currentIndex]}
+          llmNeuro={CHARACTER_NEURODIVERSITY[currentIndex]}
+          onNewMessage={handleNewMessage}
+        />
+      </>
+    );
+  }
+
+  if (currentStage === STAGES.MAIN_STUDY) {
+    const completionCode = localStorage.getItem("completionCode") || "XXXXXX";
+ // For practice or main study stages, render the main app UI
+    return (
+      <>
+        <div
+          style={{
+            position: "absolute",
+            top: "10px",
+            right: "10px",
+            backgroundColor: "rgba(0, 0, 0, 0.7)",
+            borderRadius: "10px",
+            width: "8vw",
+            height: "2.5vw",
+            color: "white",
+            display: "flex",
+            justifyContent: "center",
+            cursor: "pointer",
+            zIndex: 1000,
+          }}
+          onMouseEnter={(e) => (e.target.style.backgroundColor = "rgba(0, 0, 0, 1)")}
+          onMouseLeave={(e) => (e.target.style.backgroundColor = "rgba(0, 0, 0, 0.7)")}
+          onClick={handleNextOrQuestionnaire}
+        >
+          <div
+            style={{
+              alignSelf: "center",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              fontWeight: "bold",
+            }}
+          >
+            <p style={{ fontSize: "1vw" }}>
+              {currentStage === STAGES.PRACTICE ? "Next" : "Questionnaire"}
+            </p>
+          </div>
+        </div>
+
+        {showInteractionCue && (
+          <div
+            style={{
+              position: "absolute",
+              top: "20px",
+              left: "15px",
+              backgroundColor: "rgba(0, 0, 0, 0.7)",
+              borderRadius: "20px",
+              width: "30vw",
+              height: "55vh",
+              color: "white",
+              zIndex: 1000,
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              padding: "10px"
+            }}
+          >
+            <div style={{ textAlign: "left" }}>
+              <p style={{ fontSize: "1.2vw", marginBottom: "5px"}}>Press [T] to talk to the NPC, and release [T] after asking each question below.</p>
+              <p style={{ fontSize: "1.2vw", marginBottom: "5px" }}>Please wait until the NPC finishes responding before asking the next question.</p>
+              <p style={{ fontSize: "1.2vw", marginBottom: "5px", fontWeight: "bold" }}>Questions:</p>
+              <ol style={{ fontSize: "1.2vw", margin: "5px", textAlign: "left" }}>
+                {/* <li>Press [T] to talk to the NPC, and release [T] when you have followed each instruction below: </li> */}
+                <li>What is your name?</li>
+                <p></p>
+                <li>Do you feel safe right now?</li>
+                <p></p>
+                <li>Are you thinking of hurting yourself or others?</li>
+                <p></p>
+                <li>What would help you feel calmer?</li>
+                <p></p>
+                <li>What are you feeling physically and emotionally right now?</li>
+              </ol>
+              <p style={{ fontSize: "1.2vw", marginBottom: "5px"}}>After asking the above questions, please click on the [Questionnaire] at the top right of the webpage.</p>
+            </div>
+            <div style={{ marginTop: "20px" }}>
+              <p style={{ textAlign: "center" }}></p>
+            </div>
+          </div>
+        )}
+
+        {showWarning && (
+          <div style={{
+            position: "fixed",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            backgroundColor: "rgba(255,0,0,0.9)",
+            color: "white",
+            padding: "40px",
+            borderRadius: "16px",
+            zIndex: 9999,
+            fontSize: "2em"
+          }}>
+            Minimum 5 interactions required!
+          </div>
+        )}
+
+        <KeyboardControls
+          map={[
+            { name: "forward", keys: ["ArrowUp", "w", "W"] },
+            { name: "backward", keys: ["ArrowDown", "s", "S"] },
+            { name: "left", keys: ["ArrowLeft", "a", "A"] },
+            { name: "right", keys: ["ArrowRight", "d", "D"] },
+            { name: "sprint", keys: ["Shift"] },
+            { name: "jump", keys: ["Space"] },
+          ]}
+        >
+          <Loader />
+          <Canvas
+            shadows
+            camera={{
+              position: [0, 0.8, 3],
+              fov: 75,
+            }}
+            key={CHARACTER_IDS[currentIndex]} // Force canvas re-creation on character change
+          >
+            <Experience client={client} model={CHARACTER_MODELS[currentIndex]} />
+          </Canvas>
+        </KeyboardControls>
+        <ChatBubble
+          client={client}
+          llmModel={CHARACTER_LLM[currentIndex]}
+          llmConduct={CHARACTER_CONDUCT[currentIndex]}
+          llmNeuro={CHARACTER_NEURODIVERSITY[currentIndex]}
+          onNewMessage={handleNewMessage}
+        />
+      </>
+    );
+  }
+  
+
+  // // For practice or main study stages, render the main app UI
+  // return (
+  //   <>
+  //     <div
+  //       style={{
+  //         position: "absolute",
+  //         top: "10px",
+  //         right: "10px",
+  //         backgroundColor: "rgba(0, 0, 0, 0.7)",
+  //         borderRadius: "10px",
+  //         width: "8vw",
+  //         height: "2.5vw",
+  //         color: "white",
+  //         display: "flex",
+  //         justifyContent: "center",
+  //         cursor: "pointer",
+  //         zIndex: 1000,
+  //       }}
+  //       onMouseEnter={(e) => (e.target.style.backgroundColor = "rgba(0, 0, 0, 1)")}
+  //       onMouseLeave={(e) => (e.target.style.backgroundColor = "rgba(0, 0, 0, 0.7)")}
+  //       onClick={handleNextOrQuestionnaire}
+  //     >
+  //       <div
+  //         style={{
+  //           alignSelf: "center",
+  //           display: "flex",
+  //           flexDirection: "column",
+  //           justifyContent: "center",
+  //           fontWeight: "bold",
+  //         }}
+  //       >
+  //         <p style={{ fontSize: "0.78vw" }}>
+  //           {currentStage === STAGES.PRACTICE ? "Next" : "Questionnaire"}
+  //         </p>
+  //       </div>
+  //     </div>
+
+  //     {showInteractionCue && (
+  //       <div
+  //         style={{
+  //           position: "absolute",
+  //           top: "10px",
+  //           left: "5px",
+  //           backgroundColor: "rgba(0, 0, 0, 0.7)",
+  //           borderRadius: "20px",
+  //           width: "35vw",
+  //           height: "25vh",
+  //           color: "white",
+  //           zIndex: 1000,
+  //           display: "flex",
+  //           flexDirection: "column",
+  //           justifyContent: "center",
+  //           alignItems: "center",
+  //           padding: "5px"
+  //         }}
+  //       >
+  //         <div style={{ textAlign: "center" }}>
+  //           {/* <p style={{ fontSize: "1.7vw", marginBottom: "5px" }}>Please follow the instructions below:</p> */}
+  //           <ol style={{ fontSize: "1.5vw", margin: "5px", textAlign: "left" }}>
+  //             <li>Press [T] to talk to the NPC, and release [T] when you have followed each instruction below: </li>
+  //             <li>Introduce yourself to the NPC and greet them.</li>
+  //             <li>Ask for their name.</li>
+  //             <li>Ask them about their favorite game.</li>
+  //             <li>Ask them about an amazing fact they know.</li>
+  //           </ol>
+  //         </div>
+  //         <div style={{ marginTop: "20px" }}>
+  //           <p style={{ textAlign: "center" }}></p>
+  //         </div>
+  //       </div>
+  //     )}
+
+  //     {showWarning && (
+  //       <div style={{
+  //         position: "fixed",
+  //         top: "50%",
+  //         left: "50%",
+  //         transform: "translate(-50%, -50%)",
+  //         backgroundColor: "rgba(255,0,0,0.9)",
+  //         color: "white",
+  //         padding: "40px",
+  //         borderRadius: "16px",
+  //         zIndex: 9999,
+  //         fontSize: "2em"
+  //       }}>
+  //         Minimum 5 interactions required!
+  //       </div>
+  //     )}
+
+  //     <KeyboardControls
+  //       map={[
+  //         { name: "forward", keys: ["ArrowUp", "w", "W"] },
+  //         { name: "backward", keys: ["ArrowDown", "s", "S"] },
+  //         { name: "left", keys: ["ArrowLeft", "a", "A"] },
+  //         { name: "right", keys: ["ArrowRight", "d", "D"] },
+  //         { name: "sprint", keys: ["Shift"] },
+  //         { name: "jump", keys: ["Space"] },
+  //       ]}
+  //     >
+  //       <Loader />
+  //       <Canvas
+  //         shadows
+  //         camera={{
+  //           position: [0, 0.8, 3],
+  //           fov: 75,
+  //         }}
+  //         key={CHARACTER_IDS[currentIndex]} // Force canvas re-creation on character change
+  //       >
+  //         <Experience client={client} model={CHARACTER_MODELS[currentIndex]} />
+  //       </Canvas>
+  //     </KeyboardControls>
+  //     <ChatBubble
+  //       client={client}
+  //       llmModel={CHARACTER_LLM[currentIndex]}
+  //       llmConduct={CHARACTER_CONDUCT[currentIndex]}
+  //       llmNeuro={CHARACTER_NEURODIVERSITY[currentIndex]}
+  //       onNewMessage={handleNewMessage}
+  //     />
+  //   </>
+  // );
 }
 
 export default App;

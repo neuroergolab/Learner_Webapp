@@ -30,7 +30,7 @@ const CHARACTER_IDS = [
   "a8a061d4-662e-11ef-ab87-42010a7be011", // Sadie
 ];
 
-const CHARACTER_LLM = ["LLM1", "LLM1", "LLM1", "LLM1", "LLM1", "LLM1", "LLM1", "LLM1", "LLM1", "LLM1", "LLM1", "LLM1", "LLM1", "LLM1", "LLM1", "LLM1", "LLM1", "LLM1"];
+const CHARACTER_LLM = ["LLM1", "LLM1", "LLM4", "LLM2", "LLM1", "LLM3", "LLM2", "LLM4", "LLM4", "LLM2", "LLM1", "LLM3", "LLM1", "LLM3", "LLM2", "LLM3", "LLM4", "LLM1"];
 const CHARACTER_CONDUCT = ["C", "C", "C", "C", "NC", "NC", "NC", "NC", "C", "NC", "C", "NC", "NC", "C", "C", "C", "NC", "C"];
 const CHARACTER_NEURODIVERSITY = ["NT", "NT", "NT", "ND", "ND", "NT", "NT", "ND", "ND", "ND", "ND", "ND", "NT", "NT", "NT", "ND", "NT", "NT"];
 const CHARACTER_MODELS = ["Harry", "James", "Antoiane", "Ashline", "Charleen", "Jax", "Jessie", "Alfred", "Amber", "Charlene", "David", "Devon", "Disire", "India", "Issac", "Matthew", "Ronald", "Sadie"];

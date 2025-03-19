@@ -1139,9 +1139,10 @@ useEffect(() => {
             zIndex: 1000,
             display: "flex",
             flexDirection: "column",
-            justifyContent: "center",
+            justifyContent: "flex-start", // 改为从顶部开始
             alignItems: "center",
-            padding: "5px"  // 如有需要可适当减小
+            padding: "15px", // 增加内边距
+            overflow: "auto" // 添加滚动条以防内容超出
           }}
         >
           <div style={{ textAlign: "left" }}>

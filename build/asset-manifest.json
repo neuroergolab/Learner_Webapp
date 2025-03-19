@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Convai_Web_Demo_Final/static/css/main.cd18c99a.css",
-    "main.js": "/Convai_Web_Demo_Final/static/js/main.38c75c88.js",
+    "main.js": "/Convai_Web_Demo_Final/static/js/main.984bdc7e.js",
     "static/media/ConvaiLogo.png": "/Convai_Web_Demo_Final/static/media/ConvaiLogo.d7955590a6aa603cf8f4.png",
     "static/media/Thumbsup_outline.png": "/Convai_Web_Demo_Final/static/media/Thumbsup_outline.d1240ddfd8c2691262cf.png",
     "static/media/Thumbsdownoutline.png": "/Convai_Web_Demo_Final/static/media/Thumbsdownoutline.4c5b6bb37a2f03defaa7.png",
@@ -9,10 +9,10 @@
     "static/media/Thumbsup_fill.png": "/Convai_Web_Demo_Final/static/media/Thumbsup_fill.cd881c89769ef0c221a7.png",
     "index.html": "/Convai_Web_Demo_Final/index.html",
     "main.cd18c99a.css.map": "/Convai_Web_Demo_Final/static/css/main.cd18c99a.css.map",
-    "main.38c75c88.js.map": "/Convai_Web_Demo_Final/static/js/main.38c75c88.js.map"
+    "main.984bdc7e.js.map": "/Convai_Web_Demo_Final/static/js/main.984bdc7e.js.map"
   },
   "entrypoints": [
     "static/css/main.cd18c99a.css",
-    "static/js/main.38c75c88.js"
+    "static/js/main.984bdc7e.js"
   ]
 }

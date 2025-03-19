@@ -817,6 +817,62 @@ useEffect(() => {
     );
   }
   
+  // if (currentStage === STAGES.PRACTICE_COMPLETE) {
+  //   return (
+  //     <div style={{
+  //       position: "fixed",
+  //       top: 0,
+  //       left: 0,
+  //       width: "100%",
+  //       height: "100%",
+  //       backgroundColor: "rgba(0, 0, 0, 0.8)",
+  //       display: "flex",
+  //       justifyContent: "center",
+  //       alignItems: "center",
+  //       zIndex: 9999
+  //     }}>
+  //       <div style={{
+  //         backgroundColor: "rgba(0, 0, 0, 0.7)",
+  //         borderRadius: "20px",
+  //         padding: "40px",
+  //         width: "100%",
+  //         maxWidth: "1400px",
+  //         color: "white",
+  //         textAlign: "center",
+  //         fontSize: "25px"
+  //       }}>
+  //         {/* <h2 style={{ marginBottom: "40px" }}>Practice Complete!</h2>  */}
+  //         <p style={{ fontSize: "24px", marginBottom: "16px" }}>Thank you for completing the practice sessions.</p>
+  //         <p style={{ fontSize: "24px", marginBottom: "16px" }}>You will now begin the actual study sessions.</p>
+  //         <p style={{ fontSize: "24px", marginBottom: "16px" }}></p>
+  //         <p style={{ fontSize: "24px", marginBottom: "16px", fontWeight: "bold" }}>PLEASE PAY ATTENTION TO THE FOLLOWING INSTRUCTIONS:</p>
+  //         <p style={{ fontSize: "24px", marginBottom: "16px" }}>Please click on BEGIN STUDY below when you are ready to begin.</p>
+  //         <p style={{ fontSize: "24px", marginBottom: "16px" }}>There will be 16 consecutive sessions with an AI NPC.</p>
+  //         <p style={{ fontSize: "24px", marginBottom: "16px" }}>Please click on NEXT below when you are ready to begin.</p>
+  //         <div 
+  //           onClick={handleStartMainStudy}
+  //           style={{
+  //             backgroundColor: "rgba(50, 50, 50, 0.7)",
+  //             borderRadius: "20px",
+  //             width: "200px",
+  //             height: "80px",
+  //             margin: "40px auto 0",
+  //             color: "white",
+  //             display: "flex",
+  //             justifyContent: "center",
+  //             alignItems: "center",
+  //             cursor: "pointer",
+  //             fontWeight: "bold"
+  //           }}
+  //           onMouseEnter={(e) => (e.target.style.backgroundColor = "rgba(70, 70, 70, 0.9)")}
+  //           onMouseLeave={(e) => (e.target.style.backgroundColor = "rgba(50, 50, 50, 0.7)")}
+  //         >
+  //           NEXT
+  //         </div>
+  //       </div>
+  //     </div>
+  //   );
+  // }
   if (currentStage === STAGES.PRACTICE_COMPLETE) {
     return (
       <div style={{
@@ -844,9 +900,16 @@ useEffect(() => {
           {/* <h2 style={{ marginBottom: "40px" }}>Practice Complete!</h2>  */}
           <p style={{ fontSize: "24px", marginBottom: "16px" }}>Thank you for completing the practice sessions.</p>
           <p style={{ fontSize: "24px", marginBottom: "16px" }}>You will now begin the actual study sessions.</p>
-          <p style={{ fontSize: "24px", marginBottom: "16px" }}>There will be 16 consecutive sessions with an AI NPC.</p>
-          <p style={{ fontSize: "24px", marginBottom: "16px" }}>Please click on NEXT below when you are ready to begin.</p>
-          <div 
+          <p style={{ fontSize: "24px", marginBottom: "16px" }}></p>
+          <p style={{ fontSize: "24px", marginBottom: "16px", fontWeight: "bold" }}>PLEASE PAY ATTENTION TO THE FOLLOWING INSTRUCTIONS:</p>
+          <p style={{ fontSize: "24px", marginBottom: "16px" }}>You will now have 16 consecutive sessions with an AI NPC.</p>
+          <p style={{ fontSize: "24px", marginBottom: "16px", fontWeight: "bold" }}>In each session, you are a police officer responding to a situation with a person in crisis.</p>
+          <p style={{ fontSize: "24px", marginBottom: "16px" }}>Each situation is different.</p>
+          <p style={{ fontSize: "24px", marginBottom: "16px" }}>Your goal is to obtain an initial assessment of the situation by following the prompt provided to you.</p>
+          <p style={{ fontSize: "24px", marginBottom: "16px" }}></p>
+          <p style={{ fontSize: "24px", marginBottom: "16px" }}>After each session you will be asked to fill a survey based on your interaction experience.</p>
+          <p style={{ fontSize: "24px", marginBottom: "16px" }}>Please click on NEXT below when you have read the instructions above and are ready to begin.</p>
+          <div
             onClick={handleStartMainStudy}
             style={{
               backgroundColor: "rgba(50, 50, 50, 0.7)",

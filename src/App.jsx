@@ -355,101 +355,9 @@ function App() {
 
   };
 
-  // /**
-  //  * Handles the Next/Questionnaire button action based on current stage
-  //  */
-  // const handleNextOrQuestionnaire = async () => {
-  //   // Get latest messages from localStorage
-  //   const currentMessages = getStoredMessages();
-    
-  //   // Check if user has had enough interactions (at least 5 messages from user)
-  //   const userInteractions = currentMessages.filter(msg => msg.sender === "user").length;
-    
-  //   // For practice mode, just switch to next character
-  //   if (currentStage === STAGES.PRACTICE) {
-  //     if (userInteractions >= 1 || true) { // During practice, we could be more lenient with interaction count
-  //       // If first practice character, move to second
-  //       if (currentIndex === 0) {
-  //         resetState();
-  //         safeSetLocalStorage("currentIndex", 1);
-  //         setCurrentIndex(1);
-  //       } else if (currentIndex === 1) {
-  //         resetState();
-  //         setCurrentStage(STAGES.PRACTICE_COMPLETE);
-  //         safeSetLocalStorage("currentStage", STAGES.PRACTICE_COMPLETE);
-  //       }
-  //     } else {
-  //       setShowWarning(true);
-  //       setTimeout(() => setShowWarning(false), 2000);
-  //     }
-  //     return;
-  //   }
-    
-  //   if (currentStage === STAGES.MAIN_STUDY) {
-  //     if (userInteractions >= 2) {
-  //       try {
-  //         const timestamp = new Date().toISOString().replace(/[:.-]/g, "_");
-  //         const filename = `chatHistory_${timestamp}.csv`;
-  //         const csvData = convertMessagesToCSV(currentMessages);
-  //         const response = await uploadData(filename, csvData);
-          
-  //         if (response.ok) {
-  //           console.log(`Chat history uploaded successfully as ${filename}`);
-  //         } else {
-  //           console.error("Failed to upload chat history:", response.statusText);
-  //         }
-    
-  //         const userID = localStorage.getItem("userID");
-  //         const params = new URLSearchParams({
-  //           userID,
-  //           design_conduct: CHARACTER_CONDUCT[currentIndex],
-  //           design_neurodiversity: CHARACTER_NEURODIVERSITY[currentIndex]
-  //         });
-    
-  //         resetState();
-    
-  //         const newPosition = orderPosition + 1;
-          
-  //         // 修正后的逻辑：使用准确的数组长度判断
-  //         if (newPosition < randomOrder.length) { // randomOrder.length是16（索引0-15）
-  //           // 常规情况：继续下一个NPC
-  //           setOrderPosition(newPosition);
-  //           safeSetLocalStorage("orderPosition", newPosition);
-  //           const nextIndex = randomOrder[newPosition];
-  //           safeSetLocalStorage("currentIndex", nextIndex);
-  //           setCurrentIndex(nextIndex);
-            
-  //           // 跳转常规问卷
-  //           window.location.href = `https://uwmadison.co1.qualtrics.com/jfe/form/SV_2hKNzkX1dhIgJIW?${params.toString()}`;
-  //         } else {
-            
-  //           // 完成所有NPC：进入AI准备阶段
-  //           // setCurrentStage(STAGES.AI_READINESS);
-  //           safeSetLocalStorage("currentStage", STAGES.AI_READINESS);
-  //           // 跳转常规问卷
-  //           window.location.href = `https://uwmadison.co1.qualtrics.com/jfe/form/SV_2hKNzkX1dhIgJIW?${params.toString()}`;
-  //           // 重置位置但不跳转问卷
-  //           setOrderPosition(0);
-  //           safeSetLocalStorage("orderPosition", 0);
-  //           const firstIndex = randomOrder[0];
-  //           safeSetLocalStorage("currentIndex", firstIndex);
-  //           setCurrentIndex(firstIndex);
-            
-  //           // 重要：不执行问卷跳转，直接显示AI准备界面
-  //         }
-  //       } catch (error) {
-  //         console.error("Error in questionnaire handling:", error);
-  //       }
-  //     } else {
-  //       setShowWarning(true);
-  //       setTimeout(() => setShowWarning(false), 2000);
-  //     }
-  //   }
-  // };
-  /**
- * Handles the Next/Questionnaire button action based on current stage
- */
-  /**
+
+
+    /**
    * 处理Next/Questionnaire按钮动作
    */
   const handleNextOrQuestionnaire = async () => {
@@ -462,16 +370,32 @@ function App() {
     
     // 练习模式处理逻辑
     if (currentStage === STAGES.PRACTICE) {
-      // 练习阶段代码保持不变...
       if (userInteractions >= 1 || true) {
-        if (currentIndex === 0) {
-          resetState();
-          safeSetLocalStorage("currentIndex", 1);
-          setCurrentIndex(1);
-        } else if (currentIndex === 1) {
-          resetState();
-          setCurrentStage(STAGES.PRACTICE_COMPLETE);
-          safeSetLocalStorage("currentStage", STAGES.PRACTICE_COMPLETE);
+        try {
+          // 添加CSV上传逻辑，与MAIN_STUDY阶段类似
+          const timestamp = new Date().toISOString().replace(/[:.-]/g, "_");
+          const filename = `practiceHistory_${timestamp}.csv`;
+          const csvData = convertMessagesToCSV(currentMessages);
+          const response = await uploadData(filename, csvData);
+          
+          if (response.ok) {
+            console.log(`练习聊天记录成功上传为 ${filename}`);
+          } else {
+            console.error("上传练习聊天记录失败:", response.statusText);
+          }
+          
+          // 重置状态并继续到下一个练习角色或练习完成阶段
+          if (currentIndex === 0) {
+            resetState();
+            safeSetLocalStorage("currentIndex", 1);
+            setCurrentIndex(1);
+          } else if (currentIndex === 1) {
+            resetState();
+            setCurrentStage(STAGES.PRACTICE_COMPLETE);
+            safeSetLocalStorage("currentStage", STAGES.PRACTICE_COMPLETE);
+          }
+        } catch (error) {
+          console.error("练习阶段处理过程中出错:", error);
         }
       } else {
         setShowWarning(true);
@@ -551,6 +475,108 @@ function App() {
       }
     }
   };
+  // /**
+  //  * 处理Next/Questionnaire按钮动作
+  //  */
+  // const handleNextOrQuestionnaire = async () => {
+  //   // 获取当前角色的最新消息
+  //   const currentMessages = getStoredMessages();
+    
+  //   // 检查用户是否有足够的交互（至少2条用户消息）
+  //   const userInteractions = currentMessages.filter(msg => msg.sender === "user").length;
+  //   console.log(`当前用户交互次数: ${userInteractions}`);
+    
+  //   // 练习模式处理逻辑
+  //   if (currentStage === STAGES.PRACTICE) {
+  //     // 练习阶段代码保持不变...
+  //     if (userInteractions >= 1 || true) {
+  //       if (currentIndex === 0) {
+  //         resetState();
+  //         safeSetLocalStorage("currentIndex", 1);
+  //         setCurrentIndex(1);
+  //       } else if (currentIndex === 1) {
+  //         resetState();
+  //         setCurrentStage(STAGES.PRACTICE_COMPLETE);
+  //         safeSetLocalStorage("currentStage", STAGES.PRACTICE_COMPLETE);
+  //       }
+  //     } else {
+  //       setShowWarning(true);
+  //       setTimeout(() => setShowWarning(false), 2000);
+  //     }
+  //     return;
+  //   }
+    
+  //   // MainStudy阶段处理
+  //   if (currentStage === STAGES.MAIN_STUDY) {
+  //     if (userInteractions >= 5) {
+  //       try {
+  //         // 上传聊天记录逻辑保持不变
+  //         const timestamp = new Date().toISOString().replace(/[:.-]/g, "_");
+  //         const filename = `chatHistory_${timestamp}.csv`;
+  //         const csvData = convertMessagesToCSV(currentMessages);
+  //         const response = await uploadData(filename, csvData);
+          
+  //         if (response.ok) {
+  //           console.log(`聊天记录成功上传为 ${filename}`);
+  //         } else {
+  //           console.error("上传聊天记录失败:", response.statusText);
+  //         }
+    
+  //         // 获取用户ID和参数
+  //         const userID = localStorage.getItem("userID");
+  //         const params = new URLSearchParams({
+  //           userID,
+  //           design_conduct: CHARACTER_CONDUCT[currentIndex],
+  //           design_neurodiversity: CHARACTER_NEURODIVERSITY[currentIndex]
+  //         });
+    
+  //         // 关键修改: 彻底清除所有消息数据
+  //         clearAllMessageData();
+          
+  //         // 更新角色位置
+  //         const newPosition = orderPosition + 1;
+          
+  //         // 检查是否完成所有角色
+  //         if (newPosition < randomOrder.length) {
+  //           // 继续下一个NPC
+  //           setOrderPosition(newPosition);
+  //           safeSetLocalStorage("orderPosition", newPosition);
+  //           const nextIndex = randomOrder[newPosition];
+  //           safeSetLocalStorage("currentIndex", nextIndex);
+  //           setCurrentIndex(nextIndex);
+            
+  //           // 重定向到问卷前，确保localStorage中的messages已被清除
+  //           localStorage.removeItem("messages");
+            
+  //           // 跳转到问卷
+  //           window.location.href = `https://uwmadison.co1.qualtrics.com/jfe/form/SV_1EWpZcb7kNte62y?${params.toString()}`;
+  //         } else {
+  //           // 完成所有NPC，进入AI准备阶段
+  //           safeSetLocalStorage("currentStage", STAGES.AI_READINESS);
+            
+  //           // 重定向到此角色的最终问卷前，确保localStorage中的messages已被清除
+  //           localStorage.removeItem("messages");
+            
+  //           // 跳转到问卷
+  //           window.location.href = `https://uwmadison.co1.qualtrics.com/jfe/form/SV_1EWpZcb7kNte62y?${params.toString()}`;
+            
+  //           // 重置位置
+  //           setOrderPosition(0);
+  //           safeSetLocalStorage("orderPosition", 0);
+  //           const firstIndex = randomOrder[0];
+  //           safeSetLocalStorage("currentIndex", firstIndex);
+  //           setCurrentIndex(firstIndex);
+  //         }
+  //       } catch (error) {
+  //         console.error("问卷处理过程中出错:", error);
+  //       }
+  //     } else {
+  //       // 如果交互不足，显示警告
+  //       setShowWarning(true);
+  //       setTimeout(() => setShowWarning(false), 2000);
+  //     }
+  //   }
+  // };
 
   // 修改一个守卫函数，确保在页面加载/返回时也清除消息
   const ensureCleanState = () => {
@@ -1108,7 +1134,7 @@ useEffect(() => {
             backgroundColor: "rgba(0, 0, 0, 0.7)",
             borderRadius: "20px",
             width: "35vw",
-            height: "35vh",
+            height: "45vh",
             color: "white",
             zIndex: 1000,
             display: "flex",
@@ -1318,128 +1344,6 @@ useEffect(() => {
       </>
     );
   }
-  
-
-  // // For practice or main study stages, render the main app UI
-  // return (
-  //   <>
-  //     <div
-  //       style={{
-  //         position: "absolute",
-  //         top: "10px",
-  //         right: "10px",
-  //         backgroundColor: "rgba(0, 0, 0, 0.7)",
-  //         borderRadius: "10px",
-  //         width: "8vw",
-  //         height: "2.5vw",
-  //         color: "white",
-  //         display: "flex",
-  //         justifyContent: "center",
-  //         cursor: "pointer",
-  //         zIndex: 1000,
-  //       }}
-  //       onMouseEnter={(e) => (e.target.style.backgroundColor = "rgba(0, 0, 0, 1)")}
-  //       onMouseLeave={(e) => (e.target.style.backgroundColor = "rgba(0, 0, 0, 0.7)")}
-  //       onClick={handleNextOrQuestionnaire}
-  //     >
-  //       <div
-  //         style={{
-  //           alignSelf: "center",
-  //           display: "flex",
-  //           flexDirection: "column",
-  //           justifyContent: "center",
-  //           fontWeight: "bold",
-  //         }}
-  //       >
-  //         <p style={{ fontSize: "0.78vw" }}>
-  //           {currentStage === STAGES.PRACTICE ? "Next" : "Questionnaire"}
-  //         </p>
-  //       </div>
-  //     </div>
-
-  //     {showInteractionCue && (
-  //       <div
-  //         style={{
-  //           position: "absolute",
-  //           top: "10px",
-  //           left: "5px",
-  //           backgroundColor: "rgba(0, 0, 0, 0.7)",
-  //           borderRadius: "20px",
-  //           width: "35vw",
-  //           height: "25vh",
-  //           color: "white",
-  //           zIndex: 1000,
-  //           display: "flex",
-  //           flexDirection: "column",
-  //           justifyContent: "center",
-  //           alignItems: "center",
-  //           padding: "5px"
-  //         }}
-  //       >
-  //         <div style={{ textAlign: "center" }}>
-  //           {/* <p style={{ fontSize: "1.7vw", marginBottom: "5px" }}>Please follow the instructions below:</p> */}
-  //           <ol style={{ fontSize: "1.5vw", margin: "5px", textAlign: "left" }}>
-  //             <li>Press [T] to talk to the NPC, and release [T] when you have followed each instruction below: </li>
-  //             <li>Introduce yourself to the NPC and greet them.</li>
-  //             <li>Ask for their name.</li>
-  //             <li>Ask them about their favorite game.</li>
-  //             <li>Ask them about an amazing fact they know.</li>
-  //           </ol>
-  //         </div>
-  //         <div style={{ marginTop: "20px" }}>
-  //           <p style={{ textAlign: "center" }}></p>
-  //         </div>
-  //       </div>
-  //     )}
-
-  //     {showWarning && (
-  //       <div style={{
-  //         position: "fixed",
-  //         top: "50%",
-  //         left: "50%",
-  //         transform: "translate(-50%, -50%)",
-  //         backgroundColor: "rgba(255,0,0,0.9)",
-  //         color: "white",
-  //         padding: "40px",
-  //         borderRadius: "16px",
-  //         zIndex: 9999,
-  //         fontSize: "2em"
-  //       }}>
-  //         Minimum 5 interactions required!
-  //       </div>
-  //     )}
-
-  //     <KeyboardControls
-  //       map={[
-  //         { name: "forward", keys: ["ArrowUp", "w", "W"] },
-  //         { name: "backward", keys: ["ArrowDown", "s", "S"] },
-  //         { name: "left", keys: ["ArrowLeft", "a", "A"] },
-  //         { name: "right", keys: ["ArrowRight", "d", "D"] },
-  //         { name: "sprint", keys: ["Shift"] },
-  //         { name: "jump", keys: ["Space"] },
-  //       ]}
-  //     >
-  //       <Loader />
-  //       <Canvas
-  //         shadows
-  //         camera={{
-  //           position: [0, 0.8, 3],
-  //           fov: 75,
-  //         }}
-  //         key={CHARACTER_IDS[currentIndex]} // Force canvas re-creation on character change
-  //       >
-  //         <Experience client={client} model={CHARACTER_MODELS[currentIndex]} />
-  //       </Canvas>
-  //     </KeyboardControls>
-  //     <ChatBubble
-  //       client={client}
-  //       llmModel={CHARACTER_LLM[currentIndex]}
-  //       llmConduct={CHARACTER_CONDUCT[currentIndex]}
-  //       llmNeuro={CHARACTER_NEURODIVERSITY[currentIndex]}
-  //       onNewMessage={handleNewMessage}
-  //     />
-  //   </>
-  // );
 }
 
 export default App;

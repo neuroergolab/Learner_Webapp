@@ -1134,7 +1134,7 @@ useEffect(() => {
             backgroundColor: "rgba(0, 0, 0, 0.7)",
             borderRadius: "20px",
             width: "35vw",
-            height: "45vh",
+            height: "60vh",
             color: "white",
             zIndex: 1000,
             display: "flex",

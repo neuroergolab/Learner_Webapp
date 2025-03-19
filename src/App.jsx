@@ -908,6 +908,7 @@ useEffect(() => {
           <p style={{ fontSize: "24px", marginBottom: "16px" }}>Your goal is to obtain an initial assessment of the situation by following the prompt provided to you.</p>
           <p style={{ fontSize: "24px", marginBottom: "16px" }}></p>
           <p style={{ fontSize: "24px", marginBottom: "16px" }}>After each session you will be asked to fill a survey based on your interaction experience.</p>
+          <p style={{ fontSize: "24px", marginBottom: "16px" }}></p>
           <p style={{ fontSize: "24px", marginBottom: "16px" }}>Please click on NEXT below when you have read the instructions above and are ready to begin.</p>
           <div
             onClick={handleStartMainStudy}

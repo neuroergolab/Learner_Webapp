@@ -926,16 +926,13 @@ useEffect(() => {
           {/* <h2 style={{ marginBottom: "40px" }}>Practice Complete!</h2>  */}
           <p style={{ fontSize: "24px", marginBottom: "16px" }}>Thank you for completing the practice sessions.</p>
           <p style={{ fontSize: "24px", marginBottom: "16px" }}>You will now begin the actual study sessions.</p>
-          <p style={{ fontSize: "24px", marginBottom: "16px" }}></p>
           <p style={{ fontSize: "24px", marginBottom: "16px" }}>&nbsp;</p>
           <p style={{ fontSize: "24px", marginBottom: "16px", fontWeight: "bold" }}>PLEASE PAY ATTENTION TO THE FOLLOWING INSTRUCTIONS:</p>
           <p style={{ fontSize: "24px", marginBottom: "16px" }}>You will now have 16 consecutive sessions with an AI NPC.</p>
           <p style={{ fontSize: "24px", marginBottom: "16px", fontWeight: "bold" }}>In each session, you are a police officer responding to a situation with a person in crisis.</p>
           <p style={{ fontSize: "24px", marginBottom: "16px" }}>Each situation is different.</p>
           <p style={{ fontSize: "24px", marginBottom: "16px" }}>Your goal is to obtain an initial assessment of the situation by following the prompt provided to you.</p>
-          <p style={{ fontSize: "24px", marginBottom: "16px" }}></p>
           <p style={{ fontSize: "24px", marginBottom: "16px" }}>After each session you will be asked to fill a survey based on your interaction experience.</p>
-          <p style={{ fontSize: "24px", marginBottom: "16px" }}></p>
           <p style={{ fontSize: "24px", marginBottom: "16px" }}>&nbsp;</p>
           <p style={{ fontSize: "24px", marginBottom: "16px" }}>Please click on NEXT below when you have read the instructions above and are ready to begin.</p>
           <div

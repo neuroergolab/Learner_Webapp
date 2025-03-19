@@ -9,7 +9,8 @@ export const uploadData = (filename, data) => {
       },
       body: JSON.stringify({
         // experimentID: "6nIaN56vQweT", // Wenqing's experimentID branch
-        experimentID: "UX50ozI42umk", // Wanyi's experimentID branch
+        // experimentID: "UX50ozI42umk", // Wanyi's experimentID branch
+        experimentID: "NW4iChQvrgRa",
         filename,                   // 动态的文件名
         data,                       // 动态的数据内容
       }),

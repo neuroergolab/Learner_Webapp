@@ -927,6 +927,7 @@ useEffect(() => {
           <p style={{ fontSize: "24px", marginBottom: "16px" }}>Thank you for completing the practice sessions.</p>
           <p style={{ fontSize: "24px", marginBottom: "16px" }}>You will now begin the actual study sessions.</p>
           <p style={{ fontSize: "24px", marginBottom: "16px" }}></p>
+          <p style={{ fontSize: "24px", marginBottom: "16px" }}>&nbsp;</p>
           <p style={{ fontSize: "24px", marginBottom: "16px", fontWeight: "bold" }}>PLEASE PAY ATTENTION TO THE FOLLOWING INSTRUCTIONS:</p>
           <p style={{ fontSize: "24px", marginBottom: "16px" }}>You will now have 16 consecutive sessions with an AI NPC.</p>
           <p style={{ fontSize: "24px", marginBottom: "16px", fontWeight: "bold" }}>In each session, you are a police officer responding to a situation with a person in crisis.</p>

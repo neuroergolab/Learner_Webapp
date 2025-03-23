@@ -2,7 +2,7 @@
   "name": "viseme-lipsync",
   "version": "0.1.0",
   "private": true,
-  "homepage": " https://CWY88.github.io/Convai_Web_Demo_Final",
+  "homepage": " https://neuroergolab.github.io/Learner_Webapp",
   "dependencies": {
     "@improbable-eng/grpc-web": "^0.15.0",
     "@mediapipe/tasks-vision": "^0.10.20",

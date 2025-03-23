@@ -1271,10 +1271,10 @@ useEffect(() => {
             }}
           >
             <div style={{ textAlign: "left" }}>
-              <p style={{ fontSize: "1.2vw", marginBottom: "5px"}}>Press [T] to talk to the NPC, and release [T] after asking each question below.</p>
-              <p style={{ fontSize: "1.2vw", marginBottom: "5px" }}>Please wait until the NPC finishes responding before asking the next question.</p>
-              <p style={{ fontSize: "1.2vw", marginBottom: "5px", fontWeight: "bold" }}>Questions:</p>
-              <ol style={{ fontSize: "1.2vw", margin: "5px", textAlign: "left" }}>
+              <p style={{ fontSize: "1vw", marginBottom: "5px"}}>Press [T] to talk to the NPC, and release [T] after asking each question below.</p>
+              <p style={{ fontSize: "1vw", marginBottom: "5px" }}>Please wait until the NPC finishes responding before asking the next question.</p>
+              <p style={{ fontSize: "1vw", marginBottom: "5px", fontWeight: "bold" }}>Questions:</p>
+              <ol style={{ fontSize: "1vw", margin: "5px", textAlign: "left" }}>
                 {/* <li>Press [T] to talk to the NPC, and release [T] when you have followed each instruction below: </li> */}
                 <li>What is your name?</li>
                 <p></p>
@@ -1286,7 +1286,7 @@ useEffect(() => {
                 <p></p>
                 <li>What are you feeling physically and emotionally right now?</li>
               </ol>
-              <p style={{ fontSize: "1.2vw", marginBottom: "5px"}}>After asking the above questions, please click on the [Questionnaire] at the top right of the webpage.</p>
+              <p style={{ fontSize: "1vw", marginBottom: "5px"}}>After asking the above questions, please click on the [Questionnaire] at the top right of the webpage.</p>
             </div>
             <div style={{ marginTop: "20px" }}>
               <p style={{ textAlign: "center" }}></p>

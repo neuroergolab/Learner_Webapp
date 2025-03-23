@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/Learner_Webapp/static/css/main.cd18c99a.css",
+    "main.js": "/Learner_Webapp/static/js/main.a9f3335b.js",
+    "static/media/ConvaiLogo.png": "/Learner_Webapp/static/media/ConvaiLogo.d7955590a6aa603cf8f4.png",
+    "static/media/Thumbsup_outline.png": "/Learner_Webapp/static/media/Thumbsup_outline.d1240ddfd8c2691262cf.png",
+    "static/media/Thumbsdownoutline.png": "/Learner_Webapp/static/media/Thumbsdownoutline.4c5b6bb37a2f03defaa7.png",
+    "static/media/Thumbsdown_fill.png": "/Learner_Webapp/static/media/Thumbsdown_fill.1162492cc98f7838279f.png",
+    "static/media/Thumbsup_fill.png": "/Learner_Webapp/static/media/Thumbsup_fill.cd881c89769ef0c221a7.png",
+    "index.html": "/Learner_Webapp/index.html",
+    "main.cd18c99a.css.map": "/Learner_Webapp/static/css/main.cd18c99a.css.map",
+    "main.a9f3335b.js.map": "/Learner_Webapp/static/js/main.a9f3335b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.cd18c99a.css",
+    "static/js/main.a9f3335b.js"
+  ]
+}

@@ -415,22 +415,23 @@ function App() {
             localStorage.removeItem("messages");
 
             // 创建URL参数对象
-            const params = new URLSearchParams();
+            // const params = new URLSearchParams();
             // 添加新参数
-            params.append("newPosition", newPosition);
-            params.append("userID", userID);
-            
-            window.location.href = `https://uwmadison.co1.qualtrics.com/jfe/form/SV_1EWpZcb7kNte62y?${params.toString()}`;
+            // params.append("newPosition", newPosition);
+            // params.append("userID", userID);
+            const userID = localStorage.getItem("userID");
+            window.location.href = `https://uwmadison.co1.qualtrics.com/jfe/form/SV_1EWpZcb7kNte62y?userID=${userID}`;
           } else {
             safeSetLocalStorage("currentStage", STAGES.AI_READINESS);
             
             localStorage.removeItem("messages");
             // 创建URL参数对象
-            const params = new URLSearchParams();
+            // const params = new URLSearchParams();
             // 添加新参数
-            params.append("newPosition", newPosition);
-            params.append("userID", userID);
-            window.location.href = `https://uwmadison.co1.qualtrics.com/jfe/form/SV_1EWpZcb7kNte62y?${params.toString()}`;
+            // params.append("newPosition", newPosition);
+            // params.append("userID", userID);
+            const userID = localStorage.getItem("userID");
+            window.location.href = `https://uwmadison.co1.qualtrics.com/jfe/form/SV_1EWpZcb7kNte62y?userID=${userID}`;
             
             setOrderPosition(0);
             safeSetLocalStorage("orderPosition", 0);

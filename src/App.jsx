@@ -394,11 +394,16 @@ function App() {
             console.error("failed to upload:", response.statusText);
           }
     
-          // const userID = localStorage.getItem("userID");
+          // // const userID = localStorage.getItem("userID");
+          // const params = new URLSearchParams({
+          //   userID,
+          //   design_conduct: CHARACTER_CONDUCT[currentIndex],
+          //   design_neurodiversity: CHARACTER_NEURODIVERSITY[currentIndex]
+          // });
           const params = new URLSearchParams({
-            userID,
-            design_conduct: CHARACTER_CONDUCT[currentIndex],
-            design_neurodiversity: CHARACTER_NEURODIVERSITY[currentIndex]
+            userID: userID,
+            ED_design_conduct: CHARACTER_CONDUCT[currentIndex],  // 添加ED_前缀
+            ED_design_neurodiversity: CHARACTER_NEURODIVERSITY[currentIndex]  // 添加ED_前缀
           });
     
           clearAllMessageData();
@@ -413,26 +418,11 @@ function App() {
             setCurrentIndex(nextIndex);
             
             localStorage.removeItem("messages");
-
-            // 创建URL参数对象
-            // const params = new URLSearchParams();
-            // 添加新参数
-            // params.append("newPosition", newPosition);
-            // params.append("userID", userID);
-            const userID = localStorage.getItem("userID");
-            const params = new URLSearchParams({ userID });
             window.location.href = `https://uwmadison.co1.qualtrics.com/jfe/form/SV_1EWpZcb7kNte62y?${params.toString()}`;
           } else {
             safeSetLocalStorage("currentStage", STAGES.AI_READINESS);
             
             localStorage.removeItem("messages");
-            // 创建URL参数对象
-            // const params = new URLSearchParams();
-            // 添加新参数
-            // params.append("newPosition", newPosition);
-            // params.append("userID", userID);
-            const userID = localStorage.getItem("userID");
-            const params = new URLSearchParams({ userID });
             window.location.href = `https://uwmadison.co1.qualtrics.com/jfe/form/SV_1EWpZcb7kNte62y?${params.toString()}`;
             
             setOrderPosition(0);

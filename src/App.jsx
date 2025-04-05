@@ -402,8 +402,8 @@ function App() {
           // });
           const params = new URLSearchParams({
             userID: userID,
-            ED_design_conduct: CHARACTER_CONDUCT[currentIndex],  // 添加ED_前缀
-            ED_design_neurodiversity: CHARACTER_NEURODIVERSITY[currentIndex]  // 添加ED_前缀
+            design_conduct: CHARACTER_CONDUCT[currentIndex],  // 添加ED_前缀
+            design_neurodiversity: CHARACTER_NEURODIVERSITY[currentIndex]  // 添加ED_前缀
           });
     
           clearAllMessageData();

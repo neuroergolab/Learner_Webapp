@@ -322,7 +322,7 @@ function App() {
     safeSetLocalStorage("currentStage", STAGES.PRACTICE_INSTRUCTION);
     
     const params = new URLSearchParams({ userID });
-    window.location.href = `https://uwmadison.co1.qualtrics.com/jfe/form/SV_9tMsWXBYiktt7uK?${params.toString()}`;
+    window.location.href = `https://uwmadison.co1.qualtrics.com/jfe/form/SV_1I9pu8ZCF3vjvw2?${params.toString()}`;
 
 
   };

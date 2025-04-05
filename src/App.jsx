@@ -420,6 +420,7 @@ function App() {
             // params.append("newPosition", newPosition);
             // params.append("userID", userID);
             const userID = localStorage.getItem("userID");
+            const params = new URLSearchParams({ userID });
             window.location.href = `https://uwmadison.co1.qualtrics.com/jfe/form/SV_1EWpZcb7kNte62y?${params.toString()}`;
           } else {
             safeSetLocalStorage("currentStage", STAGES.AI_READINESS);
@@ -431,6 +432,7 @@ function App() {
             // params.append("newPosition", newPosition);
             // params.append("userID", userID);
             const userID = localStorage.getItem("userID");
+            const params = new URLSearchParams({ userID });
             window.location.href = `https://uwmadison.co1.qualtrics.com/jfe/form/SV_1EWpZcb7kNte62y?${params.toString()}`;
             
             setOrderPosition(0);

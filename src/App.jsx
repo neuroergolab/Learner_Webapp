@@ -413,13 +413,23 @@ function App() {
             setCurrentIndex(nextIndex);
             
             localStorage.removeItem("messages");
+
+            // 创建URL参数对象
+            const params = new URLSearchParams();
+            // 添加新参数
+            params.append("newPosition", newPosition);
+            params.append("userID", userID);
             
             window.location.href = `https://uwmadison.co1.qualtrics.com/jfe/form/SV_1EWpZcb7kNte62y?${params.toString()}`;
           } else {
             safeSetLocalStorage("currentStage", STAGES.AI_READINESS);
             
             localStorage.removeItem("messages");
-            
+            // 创建URL参数对象
+            const params = new URLSearchParams();
+            // 添加新参数
+            params.append("newPosition", newPosition);
+            params.append("userID", userID);
             window.location.href = `https://uwmadison.co1.qualtrics.com/jfe/form/SV_1EWpZcb7kNte62y?${params.toString()}`;
             
             setOrderPosition(0);

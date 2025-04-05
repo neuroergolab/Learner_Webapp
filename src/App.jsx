@@ -345,8 +345,10 @@ function App() {
       if (userInteractions >= 1 || true) {
         try {
           // 添加CSV上传逻辑，与MAIN_STUDY阶段类似
+          // const newPosition = orderPosition + 1;
+          const userID = localStorage.getItem("userID");
           const timestamp = new Date().toISOString().replace(/[:.-]/g, "_");
-          const filename = `practiceHistory_${timestamp}.csv`;
+          const filename = `practiceHistory_${userID}.csv`;
           const csvData = convertMessagesToCSV(currentMessages);
           const response = await uploadData(filename, csvData);
           
@@ -379,8 +381,10 @@ function App() {
     if (currentStage === STAGES.MAIN_STUDY) {
       if (userInteractions >= 5) {
         try {
+          const newPosition = orderPosition + 1;
+          const userID = localStorage.getItem("userID");
           const timestamp = new Date().toISOString().replace(/[:.-]/g, "_");
-          const filename = `chatHistory_${timestamp}.csv`;
+          const filename = `chatHistory_${userID}_${newPosition}.csv`;
           const csvData = convertMessagesToCSV(currentMessages);
           const response = await uploadData(filename, csvData);
           
@@ -390,7 +394,7 @@ function App() {
             console.error("failed to upload:", response.statusText);
           }
     
-          const userID = localStorage.getItem("userID");
+          // const userID = localStorage.getItem("userID");
           const params = new URLSearchParams({
             userID,
             design_conduct: CHARACTER_CONDUCT[currentIndex],
@@ -399,7 +403,7 @@ function App() {
     
           clearAllMessageData();
           
-          const newPosition = orderPosition + 1;
+          // const newPosition = orderPosition + 1;
           
           if (newPosition < randomOrder.length) {
             setOrderPosition(newPosition);

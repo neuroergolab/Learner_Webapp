@@ -45,14 +45,41 @@ const STAGES = {
   FINAL_CODE: "finalCode" // 新增最终阶段
 };
 
+// const generateRandomCode = () => {
+//   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+//   let code = '';
+//   for (let i = 0; i < 6; i++) {
+//     code += chars.charAt(Math.floor(Math.random() * chars.length));
+//   }
+//   return code;
+// };
 const generateRandomCode = () => {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const numbers = '0123456789';
+  const chars = letters + numbers;
+  const now = new Date();
   let code = '';
-  for (let i = 0; i < 6; i++) {
-    code += chars.charAt(Math.floor(Math.random() * chars.length));
+  
+  // 1. 首位使用随机字母
+  code += letters.charAt(Math.floor(Math.random() * letters.length));
+  
+  // 2. 基于时间的字符 (小时转为字母A-X)
+  const hourIndex = now.getHours() % letters.length;
+  code += letters.charAt(hourIndex);
+  
+  // 3. 两位随机数字
+  for (let i = 0; i < 2; i++) {
+    code += numbers.charAt(Math.floor(Math.random() * numbers.length));
   }
+  
+  // 4. 一位随机字符
+  code += chars.charAt(Math.floor(Math.random() * chars.length));
+  
+  // 5. 最后一位固定为S
+  code += 'S';
+  
   return code;
-};
+ };
 
 /**
  * Generates a random order for main study characters (indexes 2-17)

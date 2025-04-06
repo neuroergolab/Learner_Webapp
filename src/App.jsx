@@ -457,16 +457,53 @@ function App() {
     }
   };
 
-  const handleAISurvey = () => {
-    const completionCode = generateRandomCode();
-    safeSetLocalStorage("completionCode", completionCode);
-    
-    // setCurrentStage(STAGES.FINAL_CODE);
-    safeSetLocalStorage("currentStage", STAGES.FINAL_CODE);
+  // const handleAISurvey = () => {
+  //   const completionCode = generateRandomCode();
 
+  //    // Create CSV format string
+  //   const csvData = "CompletionCode\n" + completionCode;
+
+  //   safeSetLocalStorage("completionCode", completionCode);
+    
+  //   // setCurrentStage(STAGES.FINAL_CODE);
+  //   safeSetLocalStorage("currentStage", STAGES.FINAL_CODE);
+
+  //   const userID = localStorage.getItem("userID");
+  //   const params = new URLSearchParams({ userID });
+
+  //   const filename = `completionCode_${userID}.csv`;
+  //   const response = await uploadData(filename, csvData);
+
+  //   window.location.href = `https://uwmadison.co1.qualtrics.com/jfe/form/SV_ePcYyuNH4Esjnmu?${params.toString()}`;
+  // };
+
+  const handleAISurvey = async () => {
+    const completionCode = generateRandomCode();
+    
+    // Create CSV format string
+    const csvData = "CompletionCode\n" + completionCode;
+    
+    safeSetLocalStorage("completionCode", completionCode);
+    safeSetLocalStorage("currentStage", STAGES.FINAL_CODE);
+    
     const userID = localStorage.getItem("userID");
     const params = new URLSearchParams({ userID });
-    window.location.href = `https://uwmadison.co1.qualtrics.com/jfe/form/SV_ePcYyuNH4Esjnmu?${params.toString()}`;
+    
+    try {
+      const filename = `completionCode_${userID}.csv`;
+      const response = await uploadData(filename, csvData);
+      
+      if (response.ok) {
+        console.log(`Completion code successfully uploaded as ${filename}`);
+      } else {
+        console.error("Failed to upload completion code:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error during upload process:", error);
+    } finally {
+      // Ensure redirection to the questionnaire page even if upload fails
+      window.location.href = `https://uwmadison.co1.qualtrics.com/jfe/form/SV_ePcYyuNH4Esjnmu?${params.toString()}`;
+    }
   };
 
 // Modify useEffect to ensure we clear messages on first load if needed
